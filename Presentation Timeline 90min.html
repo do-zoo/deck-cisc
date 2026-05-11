@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<title>Matchday Timeline · 90 min · CISC Tangsel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#06080f;
+  --royal:#0b2a6b;
+  --royal-2:#1a3d8f;
+  --gold:#f5c44b;
+  --sky:#5fa8ff;
+  --white:#f6f4ef;
+  --line:rgba(246,244,239,0.14);
+  --font-display:'Archivo',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+  --font-score:'Bebas Neue',sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--navy);color:var(--white);font-family:var(--font-display);font-weight:500}
+a{color:inherit}
+
+.page{
+  max-width:1280px;
+  margin:0 auto;
+  padding:72px 64px 120px;
+}
+
+.topbar{
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-family:var(--font-mono);font-size:13px;letter-spacing:0.14em;text-transform:uppercase;
+  color:rgba(246,244,239,0.6);
+  border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:44px;
+  white-space:nowrap;gap:24px;
+}
+.topbar .right{display:flex;gap:24px;align-items:baseline}
+.topbar .gold{color:var(--gold)}
+
+.hero{
+  display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:end;
+  margin-bottom:64px;
+}
+.eyebrow{
+  font-family:var(--font-mono);font-size:13px;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:18px;
+  display:flex;align-items:center;gap:14px;
+}
+.eyebrow::before{content:"";width:36px;height:1px;background:var(--gold)}
+h1{
+  font-family:var(--font-display);font-weight:900;letter-spacing:-0.025em;line-height:0.94;
+  font-size:84px;margin:0;
+}
+h1 .gold{color:var(--gold)}
+.hero p{
+  font-size:20px;line-height:1.5;color:rgba(246,244,239,0.75);margin:0;max-width:440px;
+  text-wrap:pretty;
+}
+
+.scorebar{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--line);border:1px solid var(--line);
+  margin-bottom:64px;
+}
+.scorebar > div{background:var(--navy);padding:24px 26px}
+.scorebar .label{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
+  color:rgba(246,244,239,0.55);margin-bottom:10px;
+}
+.scorebar .val{
+  font-family:var(--font-score);font-size:48px;line-height:1;letter-spacing:0.04em;color:var(--gold);
+}
+.scorebar .val .unit{font-size:18px;color:rgba(246,244,239,0.55);margin-left:6px;letter-spacing:0.16em;}
+
+/* Acts */
+.act{margin-bottom:56px;position:relative}
+.act-head{
+  display:flex;align-items:baseline;justify-content:space-between;
+  border-top:1px solid var(--line);padding-top:20px;margin-bottom:24px;gap:24px;
+  flex-wrap:wrap;
+}
+.act-head .left{display:flex;align-items:baseline;gap:24px;flex-wrap:wrap}
+.act-no{
+  font-family:var(--font-score);font-size:48px;line-height:1;color:var(--gold);letter-spacing:0.04em;
+}
+.act-title{
+  font-family:var(--font-display);font-size:32px;font-weight:800;letter-spacing:-0.01em;
+}
+.act-meta{
+  font-family:var(--font-mono);font-size:13px;letter-spacing:0.16em;text-transform:uppercase;
+  color:rgba(246,244,239,0.6);
+}
+.act-meta .gold{color:var(--gold)}
+
+.row{
+  display:grid;grid-template-columns:90px 110px 1fr;gap:24px;
+  padding:18px 0;border-bottom:1px dashed rgba(246,244,239,0.1);
+  align-items:start;
+}
+.row:last-child{border-bottom:none}
+.row .clock{
+  font-family:var(--font-mono);font-size:14px;letter-spacing:0.06em;color:var(--gold);
+  padding-top:4px;
+}
+.row .slide{
+  font-family:var(--font-mono);font-size:12px;letter-spacing:0.18em;text-transform:uppercase;
+  color:rgba(246,244,239,0.5);padding-top:6px;
+}
+.row .body .title{
+  font-family:var(--font-display);font-size:19px;font-weight:700;letter-spacing:-0.005em;margin-bottom:6px;
+}
+.row .body .activity{
+  font-size:16px;line-height:1.55;color:rgba(246,244,239,0.72);text-wrap:pretty;
+}
+.row .body .activity strong{color:var(--white);font-weight:600}
+.row .body .activity .pill{
+  display:inline-block;font-family:var(--font-mono);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;
+  background:rgba(245,196,75,0.12);color:var(--gold);
+  padding:3px 9px;border:1px solid rgba(245,196,75,0.35);margin-right:8px;vertical-align:middle;
+}
+
+/* Halftime callout */
+.act.halftime .act-head{border-top:1px solid var(--gold);padding-top:24px}
+.act.halftime .act-no, .act.halftime .act-title{color:var(--gold)}
+.act.halftime{
+  background:linear-gradient(180deg,rgba(245,196,75,0.06),rgba(245,196,75,0.0));
+  padding:8px 24px 24px;
+  border:1px solid rgba(245,196,75,0.25);
+  border-radius:2px;
+}
+
+/* Tips */
+.tips{
+  margin-top:80px;border-top:1px solid var(--line);padding-top:40px;
+  display:grid;grid-template-columns:repeat(2,1fr);gap:32px;
+}
+.tip{
+  border-left:2px solid var(--gold);padding:6px 22px;
+}
+.tip .label{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:8px;
+}
+.tip .text{font-size:16px;line-height:1.5;color:rgba(246,244,239,0.78)}
+
+.foot{
+  margin-top:80px;padding-top:24px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;
+  font-family:var(--font-mono);font-size:12px;letter-spacing:0.2em;text-transform:uppercase;
+  color:rgba(246,244,239,0.5);
+}
+
+@media (max-width: 780px){
+  .page{padding:48px 28px 80px}
+  h1{font-size:56px}
+  .hero{grid-template-columns:1fr;gap:24px}
+  .scorebar{grid-template-columns:repeat(2,1fr)}
+  .row{grid-template-columns:80px 1fr;}
+  .row .slide{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="topbar">
+    <span>CISC TANGSEL · MATCHDAY PROGRAMME</span>
+    <span class="right">
+      <span>Run-of-show · Internal</span>
+      <span>·</span>
+      <span class="gold">v1 · Mei 2026</span>
+    </span>
+  </div>
+
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Tonight's Run-of-Show</div>
+      <h1>Matchday <span class="gold">Timeline</span><br/>90 menit</h1>
+    </div>
+    <p>Breakdown durasi per slide dan activity untuk presentasi <strong style="color:var(--white)">Digital Innovation Matchday</strong> ke pengurus CISC Tangsel. Total 22 slide, 7 babak, 1 halftime.</p>
+  </div>
+
+  <div class="scorebar">
+    <div><div class="label">Total Durasi</div><div class="val">90<span class="unit">MIN</span></div></div>
+    <div><div class="label">Slides</div><div class="val">22</div></div>
+    <div><div class="label">Babak</div><div class="val">7<span class="unit">+ HT</span></div></div>
+    <div><div class="label">Q&amp;A</div><div class="val">6<span class="unit">MIN</span></div></div>
+  </div>
+
+  <!-- ACT 1 -->
+  <div class="act">
+    <div class="act-head">
+      <div class="left">
+        <div class="act-no">01</div>
+        <div class="act-title">Kick-off</div>
+      </div>
+      <div class="act-meta"><span class="gold">10 MIN</span> · 00:00 → 10:00 · 4 slides</div>
+    </div>
+    <div class="row"><div class="clock">00:00–02:00</div><div class="slide">01 · Cover</div><div class="body"><div class="title">Digital Innovation Matchday</div><div class="activity">Pembuka hangat. Sapa pengurus, ice breaker singkat — <em>"siapa yang udah pernah jadi panitia nobar?"</em></div></div></div>
+    <div class="row"><div class="clock">02:00–04:00</div><div class="slide">02 · Lineup</div><div class="body"><div class="title">Tonight's Lineup (Agenda)</div><div class="activity">Walkthrough agenda. Set ekspektasi: 7 babak, total 90 menit, ada halftime.</div></div></div>
+    <div class="row"><div class="clock">04:00–07:00</div><div class="slide">03 · Pre-Match</div><div class="body"><div class="title">Who We Are</div><div class="activity">Numbers CISC Tangsel. Pancing input: <em>"data ini masih akurat nggak?"</em></div></div></div>
+    <div class="row"><div class="clock">07:00–10:00</div><div class="slide">04 · Pain Points</div><div class="body"><div class="title">The Problem We're Tackling</div><div class="activity"><span class="pill">Discuss</span> Sharing session ringan. Tanya 1–2 pengurus: <em>"kalian relate ke mana?"</em></div></div></div>
+  </div>
+
+  <!-- ACT 2 -->
+  <div class="act">
+    <div class="act-head">
+      <div class="left">
+        <div class="act-no">02</div>
+        <div class="act-title">Game Plan</div>
+      </div>
+      <div class="act-meta"><span class="gold">10 MIN</span> · 10:00 → 20:00 · 2 slides</div>
+    </div>
+    <div class="row"><div class="clock">10:00–14:00</div><div class="slide">05 · Goals</div><div class="body"><div class="title">Goals &amp; KPIs</div><div class="activity">Bahas 4 target. Konfirmasi prioritas: <em>"mana yang paling mendesak buat season ini?"</em></div></div></div>
+    <div class="row"><div class="clock">14:00–20:00</div><div class="slide">06 · Tactical Board</div><div class="body"><div class="title">Solution Overview</div><div class="activity">Penjelasan 4 fase siklus event. Pakai whiteboard kalau perlu gambarin flow.</div></div></div>
+  </div>
+
+  <!-- ACT 3 -->
+  <div class="act">
+    <div class="act-head">
+      <div class="left">
+        <div class="act-no">03</div>
+        <div class="act-title">Starting XI</div>
+      </div>
+      <div class="act-meta"><span class="gold">15 MIN</span> · 20:00 → 35:00 · 3 slides</div>
+    </div>
+    <div class="row"><div class="clock">20:00–26:00</div><div class="slide">07 · Formation</div><div class="body"><div class="title">The Starting XI</div><div class="activity">Walkthrough 11 modul pakai metafora formasi. Highlight 3–4 modul utama.</div></div></div>
+    <div class="row"><div class="clock">26:00–30:00</div><div class="slide">08 · Tech Stack</div><div class="body"><div class="title">Under the Hood</div><div class="activity">Singkat aja — yang non-teknis cukup tahu <em>"open standard + zero ops"</em>.</div></div></div>
+    <div class="row"><div class="clock">30:00–35:00</div><div class="slide">09 · Squad Roles</div><div class="body"><div class="title">Admin Roles</div><div class="activity"><span class="pill">Activity</span> Assign tiap pengurus ke role: Owner / Admin / Verifier / Viewer.</div></div></div>
+  </div>
+
+  <!-- ACT 4 -->
+  <div class="act">
+    <div class="act-head">
+      <div class="left">
+        <div class="act-no">04</div>
+        <div class="act-title">First Half · Public Flow</div>
+      </div>
+      <div class="act-meta"><span class="gold">12 MIN</span> · 35:00 → 47:00 · 2 slides</div>
+    </div>
+    <div class="row"><div class="clock">35:00–40:00</div><div class="slide">10 · User Journey</div><div class="body"><div class="title">Public Flow</div><div class="activity">Walkthrough 6 langkah pendaftaran dari sisi member.</div></div></div>
+    <div class="row"><div class="clock">40:00–47:00</div><div class="slide">11 · Pricing</div><div class="body"><div class="title">Pricing Engine</div><div class="activity"><span class="pill">Live demo</span> Demo perhitungan harga live. Tanya: <em>"skenario harga apa lagi yang mau dicover?"</em></div></div></div>
+  </div>
+
+  <!-- HALFTIME -->
+  <div class="act halftime">
+    <div class="act-head">
+      <div class="left">
+        <div class="act-no">HT</div>
+        <div class="act-title">Half-Time Break</div>
+      </div>
+      <div class="act-meta"><span class="gold">5 MIN</span> · 47:00 → 52:00 · 1 slide</div>
+    </div>
+    <div class="row"><div class="clock">47:00–52:00</div><div class="slide">12 · Quote</div><div class="body"><div class="title">Half-Time Quote</div><div class="activity"><strong>BREAK.</strong> Stretch, ambil minum. Slide quote tetap di-display. Jangan terusin presentasi.</div></div></div>
+  </div>
+
+  <!-- ACT 5 -->
+  <div class="act">
+    <div class="act-head">
+      <div class="left">
+        <div class="act-no">05</div>
+        <div class="act-title">Second Half · Admin Workflow</div>
+      </div>
+      <div class="act-meta"><span class="gold">15 MIN</span> · 52:00 → 67:00 · 3 slides</div>
+    </div>
+    <div class="row"><div class="clock">52:00–58:00</div><div class="slide">13 · Inbox</div><div class="body"><div class="title">Admin Verification</div><div class="activity"><span class="pill">Live demo</span> Demo flow approve/reject. Tunjukin template WhatsApp.</div></div></div>
+    <div class="row"><div class="clock">58:00–62:00</div><div class="slide">14 · Status</div><div class="body"><div class="title">Status Flow / Substitutions</div><div class="activity">Walkthrough lifecycle status registrasi end-to-end.</div></div></div>
+    <div class="row"><div class="clock">62:00–67:00</div><div class="slide">15 · WhatsApp</div><div class="body"><div class="title">WhatsApp Communications</div><div class="activity"><span class="pill">Discuss</span> Diskusi template WA: mana yang perlu ditambah atau diubah.</div></div></div>
+  </div>
+
+  <!-- ACT 6 -->
+  <div class="act">
+    <div class="act-head">
+      <div class="left">
+        <div class="act-no">06</div>
+        <div class="act-title">Stats &amp; Impact</div>
+      </div>
+      <div class="act-meta"><span class="gold">10 MIN</span> · 67:00 → 77:00 · 3 slides</div>
+    </div>
+    <div class="row"><div class="clock">67:00–70:00</div><div class="slide">16 · Demo</div><div class="body"><div class="title">Demo Screenshots</div><div class="activity">Visual tour cepat. Bisa loncat ke aplikasi live kalau memungkinkan.</div></div></div>
+    <div class="row"><div class="clock">70:00–73:00</div><div class="slide">17 · Reports</div><div class="body"><div class="title">Reporting &amp; CSV Export</div><div class="activity">Tunjukin contoh laporan untuk bendahara.</div></div></div>
+    <div class="row"><div class="clock">73:00–77:00</div><div class="slide">18 · Impact</div><div class="body"><div class="title">Manfaat Komunitas</div><div class="activity"><span class="pill">Discuss</span> Bahas dampak. Minta input metrik yang mau ditrack season depan.</div></div></div>
+  </div>
+
+  <!-- ACT 7 -->
+  <div class="act">
+    <div class="act-head">
+      <div class="left">
+        <div class="act-no">07</div>
+        <div class="act-title">Next Season</div>
+      </div>
+      <div class="act-meta"><span class="gold">5 MIN</span> · 77:00 → 82:00 · 2 slides</div>
+    </div>
+    <div class="row"><div class="clock">77:00–79:00</div><div class="slide">19 · Recap</div><div class="body"><div class="title">Before vs After</div><div class="activity">Recap visual cepat.</div></div></div>
+    <div class="row"><div class="clock">79:00–82:00</div><div class="slide">20 · Roadmap</div><div class="body"><div class="title">Roadmap Season 2026/27</div><div class="activity"><span class="pill">Discuss</span> Tanya prioritas roadmap dari pengurus.</div></div></div>
+  </div>
+
+  <!-- FINAL WHISTLE -->
+  <div class="act">
+    <div class="act-head">
+      <div class="left">
+        <div class="act-no">FT</div>
+        <div class="act-title">Final Whistle · Q&amp;A</div>
+      </div>
+      <div class="act-meta"><span class="gold">8 MIN</span> · 82:00 → 90:00 · 2 slides</div>
+    </div>
+    <div class="row"><div class="clock">82:00–84:00</div><div class="slide">21 · CTA</div><div class="body"><div class="title">Call to Action</div><div class="activity">Tegasin CTA: siapa ambil tanggung jawab apa.</div></div></div>
+    <div class="row"><div class="clock">84:00–90:00</div><div class="slide">22 · Q&amp;A</div><div class="body"><div class="title">Open Mic</div><div class="activity"><span class="pill">Q&amp;A</span> Pertanyaan, kritik, ide. Tutup dengan <strong>KTBFFH 🦁💙</strong></div></div></div>
+  </div>
+
+  <!-- TIPS -->
+  <div class="tips">
+    <div class="tip">
+      <div class="label">Tip 01 · Halftime</div>
+      <div class="text">Halftime bener-bener pause. Jangan terusin slide, biarin pengurus tarik napas, ngobrol bebas.</div>
+    </div>
+    <div class="tip">
+      <div class="label">Tip 02 · Engagement</div>
+      <div class="text">Activity slide 09 (assign role) bikin sesi nggak satu arah — ini momen partisipatif terbesar.</div>
+    </div>
+    <div class="tip">
+      <div class="label">Tip 03 · Buffer</div>
+      <div class="text">Kalau ada slide yang molor, cut dari slide 14 atau 16 dulu (paling fleksibel).</div>
+    </div>
+    <div class="tip">
+      <div class="label">Tip 04 · Live Demo</div>
+      <div class="text">Siapin laptop demo live buat slide 11, 13, 17 — lebih impact dari screenshot statis.</div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>CISC TANGSEL · TIM INOVASI</span>
+    <span>RUN-OF-SHOW · 90 MIN</span>
+  </div>
+
+</div>
+
+</body>
+</html>

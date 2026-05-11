@@ -1,0 +1,2146 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Digital Innovation @ CISC Tangsel — Matchday Programme</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Archivo:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+    integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+    integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+    integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y"
+    crossorigin="anonymous"></script>
+
+  <script type="application/json" id="speaker-notes">
+[
+  "Selamat malam, Pengurus CISC Tangsel! Sebelum kita mulai — bayangkan kita lagi duduk di tribun, scoreboard udah nyala, peluit kick-off bentar lagi ditiup. Malam ini kita bahas satu hal: gimana komunitas kita upgrade dari cara manual ke sistem digital yang udah jalan. Saya pegang Anda 30 menit, jadi santai aja, anggap ini matchday programme. Kita kupas semua dari pre-match sampai final whistle.",
+  "Ini lineup pembahasan kita malam ini. Tujuh chapter, dari kenapa kita butuh inovasi digital, gimana sistemnya dibangun, alur peserta dan admin, sampai dampaknya buat komunitas dan rencana season depan. Saya bakal kasih waktu Q&A di akhir, tapi kalau ada pertanyaan urgent di tengah jalan, langsung angkat tangan aja.",
+  "Sebelum masuk ke inovasinya, kita kenalan dulu sama tim kita sendiri. CISC Tangsel — Chelsea Indonesia Supporters Club chapter Tangerang Selatan. Anggota aktif kita ada di angka segini, rata-rata nobar per bulan segini, dan komunitas ini udah jalan tahun ke sekian. Angka-angka ini placeholder ya, tolong diisi yang aktual sebelum hari-H presentasi.",
+  "Sekarang kita pre-match analysis: kenapa sih kita butuh sistem digital? Ini yang selama ini kita rasain. Pendaftaran nobar masih via japri WA satu-satu, rekap pakai spreadsheet yang gampang ketuker, validasi member dicek manual, dan bukti transfer numpuk di folder galeri HP pengurus. Setiap event, jam habis cuma buat administrasi, bukan buat ngurus pengalaman anggotanya.",
+  "Jadi apa target kita? Game plan-nya empat: kurangi waktu admin, tingkatkan akurasi data anggota, beri pengalaman pendaftaran yang smooth ke member dan tamu, dan satu yang penting — semua jejak transaksi dan keputusan tercatat rapi buat akuntabilitas pengurus.",
+  "Ini solusinya, tactical board kita. Satu aplikasi web yang ngurus seluruh siklus event: dari publik lihat event aktif, daftar, upload bukti bayar, sampai admin verifikasi, catat kehadiran, dan keluarin laporan. Semua dalam satu sistem, satu sumber kebenaran, akses dari browser apa pun — laptop pengurus, HP anggota.",
+  "Inilah Starting XI kita — sebelas modul utama yang udah jalan di sistem. Kayak formasi 4-3-3: empat di lini belakang pegang fondasi data, tiga di lini tengah pegang operasional event, dan tiga striker yang langsung berhadapan sama anggota dan publik. Ditambah satu kiper, yaitu sistem autentikasi yang jaga semua dari belakang.",
+  "Di balik layar, ini tech stack-nya. Saya nggak akan masuk terlalu dalam — yang penting adalah semuanya open standard, hosting di Vercel jadi nggak perlu maintain server sendiri, dan database di Neon Postgres yang bisa di-backup kapan aja. Stack ini sengaja dipilih biar pengurus berikutnya gampang lanjutin tanpa harus jadi engineer.",
+  "Sistem ini punya empat peran admin. Owner — biasanya ketua chapter, akses penuh. Admin — pengurus inti, hampir semua bisa kecuali setting paling sensitif. Verifier — yang fokus review pendaftaran masuk, biasanya tim acara. Viewer — yang cuma butuh lihat, misalnya bendahara untuk audit. Tiap peran dipisah biar tugas verifikasi nggak nyampur sama setting tingkat klub.",
+  "Sekarang first half — gimana anggota daftar event. Enam langkah aja: lihat event aktif di homepage, buka detail event, isi formulir, upload bukti transfer, submit, terima konfirmasi. Semua langkah ini dirancang biar bisa selesai di HP dalam tiga menit. Validasi member, perhitungan harga, semua jalan otomatis sambil mereka ngisi.",
+  "Yang menarik di balik form ini adalah pricing engine. Harga itu nggak hardcoded — sistem ngitung berdasarkan status anggota, ada tiket partner atau enggak, dan konfigurasi menu event. Dan yang krusial: harga di-snapshot saat submit. Jadi kalau kebijakan harga berubah seminggu kemudian, pendaftaran yang udah masuk nggak ke-impact.",
+  "Sebelum kita masuk ke sisi admin, kita ambil napas sebentar. Ini cuma slide pengingat: tools itu cuma alat. Yang bikin CISC Tangsel hidup tetap anggotanya dan pengurusnya. Sistem ini ada buat ngurangin friksi, bukan ngegantiin kehangatan komunitas.",
+  "Babak kedua: workflow admin. Tiap pendaftaran masuk ke inbox per event. Verifier buka satu-satu, lihat profil pendaftar, cek bukti bayar, lihat snapshot harga, baru ambil keputusan: setuju, tolak, atau tandai ada masalah pembayaran. Semua keputusan kecatat di histori — siapa, kapan, apa alasannya.",
+  "Status registrasi ngalir kayak substitution di pertandingan. Dimulai dari submitted, masuk pending review, lalu bercabang ke approved, rejected, atau payment issue. Setelah approved, baru muncul jalur attendance, dan kalau perlu adjustment invoice. Cancel dan refund itu status terminal — peluit panjang.",
+  "Komunikasi ke pendaftar tetap pakai WhatsApp — kita tau anggota kita lebih nyaman di WA daripada email. Tapi sekarang teks-nya nggak ngarang lagi: ada template buat persetujuan, penolakan, kendala bayar, pembatalan, refund, sama tagihan kekurangan. Admin tinggal copy-paste, konsisten, dan tetap personal.",
+  "Ini scoreboard-nya — modul laporan. Per event kita bisa lihat ringkasan kehadiran, finansial, agregasi menu atau voucher, dan ekspor CSV empat belas kolom yang bisa langsung dibuka di Excel. Buat rapat penutupan acara dan laporan ke pusat, ini bagian yang paling dipake bendahara.",
+  "Sekarang waktunya demo reel. Tiga screenshot utama: halaman publik event, inbox admin, dan dashboard laporan. Screenshot riil belum di-attach ya — ini placeholder dulu. Mas operator tolong nanti taruh capture yang aktual sebelum hari-H, biar audiens lihat UI yang sebenarnya.",
+  "Match stats — dampak buat komunitas. Angka-angka ini placeholder, mohon diisi yang riil ya. Tapi indikatornya kira-kira gini: waktu admin per event turun, akurasi data member naik, dan kepuasan anggota — bisa lewat survey singkat — juga naik. Yang mau saya tekankan: yang kita kejar bukan teknologi keren, tapi outcome buat komunitas.",
+  "Before versus after — pertandingan yang udah kita menangin. Manual versus digital, side by side. Yang kiri itu kita enam bulan lalu, yang kanan kita sekarang. Bukan revolusi, tapi konsisten naik per matchday.",
+  "Next season — roadmap. Tiga fase besar. Fase pertama, polishing yang udah ada dan onboarding pengurus baru. Fase kedua, integrasi pembayaran otomatis dan reminder. Fase ketiga, mimpi yang lebih besar — sharing sistem ini ke chapter lain di Indonesia, biar inovasi kita nggak berhenti di Tangsel.",
+  "Final whistle. Kalau ada satu hal yang mau saya minta dari Pengurus malam ini, ini dia. Saya butuh komitmen dari teman-teman buat dorong adopsi penuh di event berikutnya, dukungan buat dokumentasi dan training, dan satu-dua relawan yang mau bantu maintain sistem ke depan. Yang mau gabung, ngobrol bareng abis sesi ini ya.",
+  "Terima kasih, Pengurus CISC Tangsel. Sekarang waktunya open mic — pertanyaan, kritik, ide gila apa pun, silakan. KTBFFH!"
+]
+</script>
+
+  <style>
+    :root {
+      /* type scale */
+      --type-display: 168px;
+      --type-title: 84px;
+      --type-subtitle: 52px;
+      --type-body: 32px;
+      --type-small: 26px;
+      --type-tiny: 22px;
+      --type-mono: 28px;
+
+      /* spacing */
+      --pad-top: 96px;
+      --pad-bottom: 160px;
+      --pad-x: 112px;
+      --gap-title: 48px;
+      --gap-item: 28px;
+
+      /* palette — custom royal football blue (not the exact Chelsea hex) */
+      --navy: #0a1640;
+      --navy-deep: #060d2a;
+      --royal: #1e4dd8;
+      --royal-2: #2a62f5;
+      --sky: #7aaeff;
+      --gold: #f5c44b;
+      --gold-deep: #c89522;
+      --white: #f6f4ef;
+      --paper: #efeae0;
+      --pitch: #1a6e3a;
+      --ink: #06080f;
+      --line: rgba(255, 255, 255, 0.14);
+      --line-strong: rgba(255, 255, 255, 0.32);
+
+      /* font stacks */
+      --font-display: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --font-body: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+      --font-scoreboard: "Bebas Neue", "Archivo", sans-serif;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--ink);
+      font-family: var(--font-body);
+      color: var(--white);
+      font-feature-settings: "ss01", "cv11";
+    }
+
+    deck-stage>section {
+      background: var(--navy);
+      color: var(--white);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ---------- shared scaffolding ---------- */
+    .frame {
+      position: absolute;
+      inset: 0;
+      padding: var(--pad-top) var(--pad-x) var(--pad-bottom) var(--pad-x);
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+    }
+
+    .frame-tight {
+      padding: 64px 88px 64px 88px;
+    }
+
+    /* matchday top bar: club badge + competition + slide number scoreboard */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 24px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(246, 244, 239, 0.62);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 22px;
+      margin-bottom: 56px;
+    }
+
+    .topbar .crest {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: var(--white);
+    }
+
+    .topbar .crest .logo {
+      width: 36px;
+      height: 44px;
+    }
+
+    .topbar .meta {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .topbar .meta .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    .topbar .scoreline {
+      font-family: var(--font-scoreboard);
+      font-size: 28px;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+    }
+
+    /* eyebrow label */
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 56px;
+      height: 2px;
+      background: var(--gold);
+    }
+
+    /* titles */
+    h1,
+    h2,
+    h3,
+    h4 {
+      margin: 0;
+      font-weight: 800;
+    }
+
+    .title {
+      font-family: var(--font-display);
+      font-size: var(--type-title);
+      line-height: 0.94;
+      letter-spacing: -0.025em;
+      font-weight: 900;
+      text-wrap: balance;
+    }
+
+    .subtitle {
+      font-family: var(--font-body);
+      font-size: var(--type-subtitle);
+      line-height: 1.12;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: rgba(246, 244, 239, 0.78);
+      text-wrap: pretty;
+    }
+
+    .body {
+      font-family: var(--font-body);
+      font-size: var(--type-body);
+      line-height: 1.4;
+      color: rgba(246, 244, 239, 0.86);
+      text-wrap: pretty;
+    }
+
+    .small {
+      font-family: var(--font-body);
+      font-size: var(--type-small);
+      line-height: 1.4;
+      color: rgba(246, 244, 239, 0.7);
+    }
+
+    .mono {
+      font-family: var(--font-mono);
+      font-size: var(--type-mono);
+      letter-spacing: 0.04em;
+    }
+
+    .scoreboard {
+      font-family: var(--font-scoreboard);
+      letter-spacing: 0.06em;
+    }
+
+    /* footer chevron */
+    .footbar {
+      position: absolute;
+      left: var(--pad-x);
+      right: var(--pad-x);
+      bottom: 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-family: var(--font-mono);
+      font-size: 24px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(246, 244, 239, 0.48);
+    }
+
+    /* pitch stripes bg variant */
+    .bg-pitch {
+      background:
+        repeating-linear-gradient(90deg,
+          rgba(255, 255, 255, 0.012) 0px,
+          rgba(255, 255, 255, 0.012) 160px,
+          transparent 160px,
+          transparent 320px),
+        radial-gradient(ellipse at 50% 40%, #112466 0%, var(--navy) 55%, var(--navy-deep) 100%);
+    }
+
+    .bg-deep {
+      background: var(--navy-deep);
+    }
+
+    .bg-paper {
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .bg-paper .body,
+    .bg-paper .subtitle,
+    .bg-paper .small {
+      color: rgba(6, 8, 15, 0.78);
+    }
+
+    .bg-paper .eyebrow {
+      color: var(--royal);
+    }
+
+    .bg-paper .eyebrow::before {
+      background: var(--royal);
+    }
+
+    .bg-royal {
+      background: var(--royal);
+    }
+
+    .bg-gold {
+      background: var(--gold);
+      color: var(--ink);
+    }
+
+    .bg-gold .body,
+    .bg-gold .subtitle,
+    .bg-gold .small {
+      color: rgba(6, 8, 15, 0.82);
+    }
+
+    .bg-gold .eyebrow {
+      color: var(--navy);
+    }
+
+    .bg-gold .eyebrow::before {
+      background: var(--navy);
+    }
+
+    /* ---------- cover ---------- */
+    .cover {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      height: 100%;
+    }
+
+    .cover-left {
+      padding: 96px 96px 96px 112px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .cover-right {
+      background:
+        repeating-linear-gradient(90deg,
+          rgba(255, 255, 255, 0.05) 0px,
+          rgba(255, 255, 255, 0.05) 96px,
+          transparent 96px,
+          transparent 192px),
+        linear-gradient(180deg, var(--royal-2) 0%, var(--royal) 45%, var(--navy) 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 96px 80px;
+    }
+
+    .cover-right::before {
+      content: "";
+      position: absolute;
+      right: -180px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 720px;
+      height: 720px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .cover-right::after {
+      content: "";
+      position: absolute;
+      right: 80px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.32);
+    }
+
+    .cover-display {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 156px;
+      line-height: 0.86;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
+
+    .cover-display .gold {
+      color: var(--gold);
+    }
+
+    .cover-display .outline {
+      -webkit-text-stroke: 2px var(--gold);
+      color: transparent;
+    }
+
+    .cover-fixture {
+      position: relative;
+      z-index: 2;
+      font-family: var(--font-scoreboard);
+      text-align: right;
+    }
+
+    .cover-fixture .vs {
+      font-size: 52px;
+      letter-spacing: 0.16em;
+      color: rgba(246, 244, 239, 0.8);
+    }
+
+    .cover-fixture .teams {
+      font-size: 88px;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin-top: 12px;
+    }
+
+    .cover-fixture .kickoff {
+      margin-top: 36px;
+      font-family: var(--font-mono);
+      font-size: 22px;
+      letter-spacing: 0.22em;
+      color: rgba(246, 244, 239, 0.8);
+    }
+
+    .cover-meta {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-family: var(--font-mono);
+      font-size: 20px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(246, 244, 239, 0.8);
+    }
+
+    /* ---------- agenda matchday programme ---------- */
+    .programme {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0 56px;
+      grid-auto-flow: column;
+      grid-template-rows: repeat(3, 1fr);
+      margin-top: 12px;
+    }
+
+    .fixture {
+      display: grid;
+      grid-template-columns: 64px 1fr 96px;
+      align-items: center;
+      gap: 18px;
+      border-top: 1px solid var(--line);
+      padding: 18px 0;
+    }
+
+    .fixture:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .fixture .num {
+      font-family: var(--font-scoreboard);
+      font-size: 64px;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+
+    .fixture .name {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 30px;
+      letter-spacing: -0.005em;
+      line-height: 1.1;
+    }
+
+    .fixture .name .sub {
+      display: block;
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 18px;
+      color: rgba(246, 244, 239, 0.55);
+      letter-spacing: 0.02em;
+      margin-top: 4px;
+    }
+
+    .fixture .time {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      text-align: right;
+      letter-spacing: 0.14em;
+      color: rgba(246, 244, 239, 0.6);
+    }
+
+    /* generic content blocks */
+    .lede {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 96px;
+      flex: 1;
+      align-items: start;
+    }
+
+    .bullet-list {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .bullet-list li {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 22px;
+      font-family: var(--font-body);
+      font-size: var(--type-body);
+      line-height: 1.32;
+      color: rgba(246, 244, 239, 0.9);
+      align-items: baseline;
+    }
+
+    .bullet-list li .idx {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      padding-top: 6px;
+    }
+
+    .bg-paper .bullet-list li {
+      color: rgba(6, 8, 15, 0.86);
+    }
+
+    .bg-paper .bullet-list li .idx {
+      color: var(--royal);
+    }
+
+    /* stat tile */
+    .stat {
+      border-top: 1px solid var(--line);
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+
+    .stat .figure {
+      display: flex;
+      align-items: end;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 128px;
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      color: var(--white);
+    }
+
+    .stat .figure .unit {
+      font-size: 56px;
+      color: var(--gold);
+      margin-left: 8px;
+    }
+
+    .stat .label {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(246, 244, 239, 0.65);
+      margin-top: 12px;
+    }
+
+    /* placeholder image slot */
+    .placeholder {
+      background:
+        repeating-linear-gradient(135deg,
+          rgba(255, 255, 255, 0.06) 0px,
+          rgba(255, 255, 255, 0.06) 14px,
+          transparent 14px,
+          transparent 28px),
+        rgba(255, 255, 255, 0.04);
+      border: 1px dashed rgba(255, 255, 255, 0.32);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+      color: rgba(246, 244, 239, 0.62);
+      font-family: var(--font-mono);
+      font-size: 18px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 24px;
+    }
+
+    .placeholder .ph-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 24px;
+      letter-spacing: 0.02em;
+      text-transform: none;
+      color: rgba(246, 244, 239, 0.86);
+    }
+
+    .bg-paper .placeholder {
+      background:
+        repeating-linear-gradient(135deg,
+          rgba(6, 8, 15, 0.06) 0px,
+          rgba(6, 8, 15, 0.06) 14px,
+          transparent 14px,
+          transparent 28px);
+      border-color: rgba(6, 8, 15, 0.28);
+      color: rgba(6, 8, 15, 0.6);
+    }
+
+    .bg-paper .placeholder .ph-title {
+      color: rgba(6, 8, 15, 0.86);
+    }
+
+    /* ---------- formation (4-3-3) ---------- */
+    .pitch {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0)),
+        repeating-linear-gradient(0deg,
+          rgba(255, 255, 255, 0.04) 0px,
+          rgba(255, 255, 255, 0.04) 80px,
+          rgba(255, 255, 255, 0.0) 80px,
+          rgba(255, 255, 255, 0.0) 160px),
+        #0c245e;
+      border: 2px solid rgba(255, 255, 255, 0.25);
+      flex: 1;
+      border-radius: 4px;
+    }
+
+    .pitch .center-circle {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .pitch .center-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 0;
+      border-top: 2px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .pitch .box-top,
+    .pitch .box-bot {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 56%;
+      height: 18%;
+      border: 2px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .pitch .box-top {
+      top: 0;
+      border-top: none;
+    }
+
+    .pitch .box-bot {
+      bottom: 0;
+      border-bottom: none;
+    }
+
+    .player {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      width: 132px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .player .jersey {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--ink);
+      font-family: var(--font-scoreboard);
+      font-size: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid #fff;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    }
+
+    .player .role {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -0.005em;
+      text-align: center;
+      color: #fff;
+      background: rgba(6, 8, 15, 0.62);
+      padding: 4px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .player .role .sub {
+      display: block;
+      font-family: var(--font-mono);
+      font-weight: 400;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(246, 244, 239, 0.6);
+      margin-top: 2px;
+    }
+
+    .player.gk .jersey {
+      background: #2d8a4a;
+      color: #fff;
+    }
+
+    /* ---------- two-column compare ---------- */
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      flex: 1;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .compare>div {
+      padding: 48px 56px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .compare .col-old {
+      border-right: 1px solid var(--line);
+    }
+
+    .compare .col-old {
+      color: rgba(246, 244, 239, 0.75);
+    }
+
+    .compare .col-new {
+      background: rgba(30, 77, 216, 0.18);
+    }
+
+    .compare .head {
+      font-family: var(--font-scoreboard);
+      font-size: 44px;
+      letter-spacing: 0.06em;
+      color: var(--white);
+    }
+
+    .compare .col-old .head {
+      color: rgba(246, 244, 239, 0.6);
+    }
+
+    .compare .col-new .head {
+      color: var(--gold);
+    }
+
+    .compare ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .compare li {
+      font-family: var(--font-body);
+      font-size: 26px;
+      line-height: 1.4;
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 14px;
+    }
+
+    .compare li::before {
+      content: "—";
+      color: rgba(246, 244, 239, 0.4);
+    }
+
+    .compare .col-new li::before {
+      content: "▸";
+      color: var(--gold);
+    }
+
+    /* ---------- journey steps ---------- */
+    .journey {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding: 24px 22px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--gold);
+      position: relative;
+    }
+
+    .step .num {
+      font-family: var(--font-scoreboard);
+      font-size: 48px;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+      line-height: 1;
+    }
+
+    .step h3 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 24px;
+      line-height: 1.12;
+      letter-spacing: -0.005em;
+    }
+
+    .step p {
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.45;
+      color: rgba(246, 244, 239, 0.75);
+      margin: 0;
+    }
+
+    /* ---------- status timeline ---------- */
+    .timeline {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      flex: 1;
+      margin-top: 24px;
+    }
+
+    .stage {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--line);
+      border-right: none;
+      padding: 32px 28px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 240px;
+    }
+
+    .stage:last-child {
+      border-right: 1px solid var(--line);
+    }
+
+    .stage::after {
+      content: "";
+      position: absolute;
+      right: -18px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-top: 18px solid transparent;
+      border-bottom: 18px solid transparent;
+      border-left: 18px solid var(--navy);
+      z-index: 2;
+    }
+
+    .stage:last-child::after {
+      display: none;
+    }
+
+    .stage .tag {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(246, 244, 239, 0.55);
+    }
+
+    .stage h4 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 26px;
+      margin-top: 10px;
+    }
+
+    .stage p {
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.4;
+      color: rgba(246, 244, 239, 0.7);
+      margin: 14px 0 0;
+    }
+
+    .stage.approved {
+      background: rgba(30, 77, 216, 0.22);
+    }
+
+    .stage.approved h4 {
+      color: var(--gold);
+    }
+
+    .stage.terminal {
+      background: rgba(245, 196, 75, 0.08);
+    }
+
+    /* ---------- quote ---------- */
+    .quote-mark {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 320px;
+      line-height: 0.6;
+      color: var(--gold);
+      letter-spacing: -0.04em;
+    }
+
+    /* hide topbar when bg-paper if we need different style */
+    .bg-paper .topbar {
+      color: rgba(6, 8, 15, 0.55);
+      border-bottom-color: rgba(6, 8, 15, 0.18);
+    }
+
+    .bg-paper .topbar .crest {
+      color: var(--ink);
+    }
+
+    .bg-paper .topbar .scoreline {
+      color: var(--royal);
+    }
+
+    .bg-paper .footbar {
+      color: rgba(6, 8, 15, 0.5);
+    }
+
+    /* utility */
+    .grow {
+      flex: 1;
+    }
+
+    .space-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    /* font scale knob */
+    :root[data-scale="s"] {
+      --type-display: 152px;
+      --type-title: 72px;
+      --type-subtitle: 44px;
+      --type-body: 28px;
+      --type-small: 22px;
+    }
+
+    :root[data-scale="l"] {
+      --type-display: 184px;
+      --type-title: 96px;
+      --type-subtitle: 60px;
+      --type-body: 36px;
+      --type-small: 28px;
+    }
+
+    /* metaphor toggle: when off, hide football-only bits */
+    :root[data-metaphor="off"] .metaphor-only {
+      display: none !important;
+    }
+
+    :root[data-metaphor="off"] .metaphor-replace::before {
+      content: attr(data-plain);
+    }
+
+    :root[data-metaphor="off"] .metaphor-replace>.metaphor-text {
+      display: none;
+    }
+
+    /* lang toggle */
+    :root[data-lang="en"] .lang-id {
+      display: none;
+    }
+
+    :root[data-lang="id"] .lang-en {
+      display: none;
+    }
+
+    /* accent colors */
+    :root[data-accent="royal"] {
+      --royal: #1e4dd8;
+      --royal-2: #2a62f5;
+      --sky: #7aaeff;
+    }
+
+    :root[data-accent="navy-deep"] {
+      --royal: #0a1640;
+      --royal-2: #122a78;
+      --sky: #4b6ec8;
+    }
+
+    :root[data-accent="electric"] {
+      --royal: #0070ff;
+      --royal-2: #2b8bff;
+      --sky: #7aaeff;
+    }
+
+    :root[data-accent="gold-flip"] {
+      --royal: #f5c44b;
+      --royal-2: #ffd766;
+      --sky: #f4e1a0;
+    }
+
+    /* bg style */
+    :root[data-bg="solid"] .bg-pitch {
+      background: var(--navy);
+    }
+
+    :root[data-bg="gradient"] .bg-pitch {
+      background: radial-gradient(ellipse at 50% 40%, #112466 0%, var(--navy) 55%, var(--navy-deep) 100%);
+    }
+  </style>
+</head>
+
+<body>
+
+  <deck-stage width="1920" height="1080">
+
+    <!-- ============ 1 — COVER ============ -->
+    <section data-label="01 Kick-off Cover">
+      <div class="cover bg-pitch">
+        <div class="cover-left" style="width: 1137px">
+          <div class="topbar"
+            style="border-bottom: none; margin: 0; flex-direction: column; align-items: flex-start; gap: 13px">
+            <div class="crest">
+              <img src="/assets/cisc-tangsel-logo.png" class="logo">
+              <span>CISC TANGSEL · MATCHDAY PROGRAMME</span>
+            </div>
+            <div class="meta" style="justify-content: flex-end; align-items: center; margin: 0px 0px 0px 54px">
+              <span>SEASON 2026/27</span>
+              <span class="dot"></span>
+              <span>EDISI 01</span>
+            </div>
+          </div>
+          <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 28px;">
+            <div class="eyebrow">Tonight's Fixture</div>
+            <h1 class="cover-display">
+              <div>Digital</div>
+              <div class="gold">Innovation</div>
+              <div class="outline">Matchday</div>
+            </h1>
+            <p class="subtitle" style="font-size: 38px; max-width: 720px; margin-top: 8px;">
+              Bagaimana CISC Tangsel naik dari pendaftaran via japri ke sistem digital end-to-end —
+              dan apa next play untuk season berikutnya.
+            </p>
+          </div>
+          <div class="cover-meta">
+            <div>
+              <div style="color: var(--gold); margin-bottom: 8px;">Disusun oleh</div>
+              <div style="color: var(--white); font-size: 22px; letter-spacing: 0.06em; white-space: nowrap;"></div>
+            </div>
+            <div style="text-align: right;">
+              <div style="color: var(--gold); margin-bottom: 8px;">Kickoff</div>
+              <div style="color: var(--white); font-size: 22px; letter-spacing: 0.06em; white-space: nowrap;">11 MEI
+                2026 · 19:30</div>
+            </div>
+          </div>
+        </div>
+        <div class="cover-right"
+          style="background-position: center center; width: 455px; justify-content: space-between">
+          <div class="cover-fixture">
+            <div class="vs">CISC TANGSEL</div>
+            <div class="teams" style="font-size: 131px">Digital Inovation</div>
+            <div class="kickoff">VS PROSES MANUAL</div>
+          </div>
+          <div style="position: relative; z-index: 2; text-align: right;">
+            <div class="mono" style="color: rgba(246,244,239,0.65); margin-bottom: 8px;">VENUE</div>
+            <div class="scoreboard" style="font-size: 44px;">RAPAT PENGURUS · Sukabumi</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2 — AGENDA PROGRAMME ============ -->
+    <section data-label="02 Matchday Programme">
+      <div class="frame bg-pitch">
+        <div class="topbar">
+          <div class="crest"><img src="/assets/cisc-tangsel-logo.png" class="logo"><span>MATCHDAY PROGRAMME</span></div>
+          <div class="meta"><span>02 / 22</span><span class="dot"></span><span class="scoreline">AGENDA</span></div>
+        </div>
+        <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 32px;">
+          <h2 class="title metaphor-replace" data-plain="Agenda Hari Ini"><span class="metaphor-text">Tonight's
+              Line-up</span></h2>
+          <div class="mono" style="color: rgba(246,244,239,0.5);">9 BABAK · 90 MENIT</div>
+        </div>
+        <div class="programme">
+          <div class="fixture">
+            <div class="num">01</div>
+            <div class="name">Kick-off<span class="sub">Cover, agenda, pre-match & pain points</span></div>
+            <div class="time">10 MIN</div>
+          </div>
+          <div class="fixture">
+            <div class="num">02</div>
+            <div class="name">Game Plan<span class="sub">Goals/KPI & tactical board solution</span></div>
+            <div class="time">10 MIN</div>
+          </div>
+          <div class="fixture">
+            <div class="num">03</div>
+            <div class="name">Starting XI<span class="sub">Fitur, tech stack & admin roles</span></div>
+            <div class="time">15 MIN</div>
+          </div>
+          <div class="fixture">
+            <div class="num">04</div>
+            <div class="name">First Half · Public Flow<span class="sub">User journey & pricing engine</span></div>
+            <div class="time">12 MIN</div>
+          </div>
+          <div class="fixture" style="background: rgba(245,196,75,0.08); border-color: rgba(245,196,75,0.35);">
+            <div class="num" style="color: var(--gold);">HT</div>
+            <div class="name">Half-Time Break<span class="sub">Stretch, ngopi, ngobrol bebas</span></div>
+            <div class="time" style="color: var(--gold);">5 MIN</div>
+          </div>
+          <div class="fixture">
+            <div class="num">05</div>
+            <div class="name">Second Half · Admin<span class="sub">Inbox, status flow & WhatsApp comms</span></div>
+            <div class="time">15 MIN</div>
+          </div>
+          <div class="fixture">
+            <div class="num">06</div>
+            <div class="name">Stats &amp; Impact<span class="sub">Demo, laporan & manfaat komunitas</span></div>
+            <div class="time">10 MIN</div>
+          </div>
+          <div class="fixture">
+            <div class="num">07</div>
+            <div class="name">Next Season<span class="sub">Recap & roadmap 2026/27</span></div>
+            <div class="time">5 MIN</div>
+          </div>
+          <div class="fixture">
+            <div class="num">FT</div>
+            <div class="name">Final Whistle<span class="sub">CTA dan Q&amp;A open mic</span></div>
+            <div class="time">8 MIN</div>
+          </div>
+        </div>
+        <div class="footbar"><span>CISC TANGSEL · MATCHDAY</span><span>02 / 22</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 3 — SQUAD / WHO WE ARE ============ -->
+    <section data-label="03 The Squad">
+      <div class="frame bg-pitch">
+        <div class="topbar">
+          <div class="crest"><img src="/assets/cisc-tangsel-logo.png" class="logo"><span>MEET THE SQUAD</span></div>
+          <div class="meta"><span>03 / 22</span><span class="dot"></span><span class="scoreline">PRE-MATCH</span></div>
+        </div>
+        <div class="eyebrow" style="margin-bottom: 32px;">Pre-Match · Who We Are</div>
+        <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 88px; flex: 1; align-items: start;">
+          <div>
+            <h2 class="title">CISC Tangsel.<br />Satu chapter, satu detak.</h2>
+            <p class="subtitle" style="font-size: 36px; margin-top: 32px; max-width: 640px;">
+              Komunitas suporter di Tangerang Selatan yang lebih dari sekadar nobar — kita ngurus
+              gathering, sosial, merchandise, dan kebersamaan setiap matchday.
+            </p>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px 48px;">
+            <div class="stat">
+              <div class="figure">202 <span class="unit">mbr</span></div>
+              <div class="label">Aktif terdaftar</div>
+            </div>
+            <div class="stat">
+              <div class="figure">1 <span class="unit">/bln</span></div>
+              <div class="label">Rata-rata nobar</div>
+            </div>
+            <div class="stat">
+              <div class="figure">13 <span class="unit">thn</span></div>
+              <div class="label">Berdiri di Tangsel</div>
+            </div>
+            <div class="stat">
+              <div class="figure">2 <span class="unit">vnu</span></div>
+              <div class="label">Mitra rutin</div>
+            </div>
+          </div>
+        </div>
+        <div class="footbar"><span>* placeholder · isi data aktual</span><span></span></div>
+      </div>
+    </section>
+
+    <!-- ============ 4 — THE PROBLEM ============ -->
+    <section data-label="04 Pre-Match Analysis Problem">
+      <div class="frame bg-deep">
+        <div class="topbar">
+          <div class="crest"><img src="/assets/cisc-tangsel-logo.png" class="logo"><span>PRE-MATCH ANALYSIS</span></div>
+          <div class="meta"><span>04 / 22</span><span class="dot"></span><span class="scoreline"
+              style="color: #ff6b6b;">PAIN POINTS</span></div>
+        </div>
+        <div class="eyebrow" style="color: #ff8a6b; margin-bottom: 20px;">The Problem We're Tackling</div>
+        <h2 class="title" style="max-width: 1280px; font-size: 64px; line-height: 1.05;">Setiap matchday, jam
+          habis<br />buat administrasi — bukan buat anggotanya.</h2>
+        <div
+          style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px 80px; margin-top: 40px; flex: 1; margin: 20px 0px 0px">
+          <div style="height: 204px">
+            <div class="mono" style="color: var(--gold); margin-bottom: 16px;">01 · PENDAFTARAN</div>
+            <p class="body">Daftar nobar masih lewat japri WhatsApp satu-satu. Rekap pakai spreadsheet yang gampang
+              ketuker antar pengurus.</p>
+          </div>
+          <div style="height: 204px">
+            <div class="mono" style="color: var(--gold); margin-bottom: 16px;">02 · VALIDASI MEMBER</div>
+            <p class="body">Nomor anggota dicek manual ke direktori Excel. Sering keliru, sering double-booking di event
+              yang sama.</p>
+          </div>
+          <div style="height: 204px">
+            <div class="mono" style="color: var(--gold); margin-bottom: 16px;">03 · BUKTI BAYAR</div>
+            <p class="body">Screenshot transfer numpuk di galeri HP pengurus. Susah lacak, susah audit, susah
+              dilampirkan ke laporan.</p>
+          </div>
+          <div style="height: 204px">
+            <div class="mono" style="color: var(--gold); margin-bottom: 16px;">04 · LAPORAN</div>
+            <p class="body">Tutup buku per event makan waktu berhari-hari. Angka kehadiran, finansial, menu — semuanya
+              direkap manual.</p>
+          </div>
+        </div>
+        <div class="footbar"><span>CISC TANGSEL · PRE-MATCH</span><span>04 / 22</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 5 — GAME PLAN / GOALS ============ -->
+    <section data-label="05 Game Plan Goals">
+      <div class="frame bg-pitch">
+        <div class="topbar">
+          <div class="crest"><img src="/assets/cisc-tangsel-logo.png" class="logo"><span>GAME PLAN</span></div>
+          <div class="meta"><span>05 / 22</span><span class="dot"></span><span class="scoreline">STRATEGY</span></div>
+        </div>
+        <div class="eyebrow" style="margin-bottom: 24px;">Our Game Plan</div>
+        <h2 class="title" style="max-width: 1480px;">Empat target yang harus<br />menang malam ini.</h2>
+        <ol class="bullet-list" style="margin-top: 56px; max-width: 1480px;">
+          <li><span class="idx">G1</span><span><strong style="color: var(--white);">Pangkas waktu admin per
+                event</strong> — pengurus balik fokus ke pengalaman anggota, bukan ke rekap.</span></li>
+          <li><span class="idx">G2</span><span><strong style="color: var(--white);">Akurasi data anggota</strong> — satu
+              sumber kebenaran, no more double-booking dan member ghost.</span></li>
+          <li><span class="idx">G3</span><span><strong style="color: var(--white);">Pengalaman pendaftaran &lt; 3 menit
+                dari HP</strong> — buat member dan tamu, tanpa instalasi apa pun.</span></li>
+          <li><span class="idx">G4</span><span><strong style="color: var(--white);">Jejak audit lengkap</strong> — siapa
+              setuju, kapan, kenapa — semua tercatat untuk akuntabilitas pengurus.</span></li>
+        </ol>
+        <div class="footbar"><span>CISC TANGSEL · OBJECTIVES</span><span>05 / 22</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 6 — TACTICAL BOARD / SOLUTION ============ -->
+    <section data-label="06 Tactical Board Solution">
+      <div class="frame bg-paper">
+        <div class="topbar">
+          <div class="crest"><img src="/assets/cisc-tangsel-logo.png" class="logo"><span>TACTICAL BOARD</span></div>
+          <div class="meta"><span>06 / 22</span><span class="dot"></span><span class="scoreline">THE SOLUTION</span>
+          </div>
+        </div>
+        <div class="eyebrow" style="margin-bottom: 16px;">The Tactical Board</div>
+        <h2 class="title" style="font-size: 64px; line-height: 1.05;">Satu sistem. Satu siklus penuh event.</h2>
+        <p class="subtitle" style="margin-top: 20px; max-width: 1480px; font-size: 26px; line-height: 1.4;">
+          Aplikasi web yang ngurus dari publik lihat event aktif, daftar, upload bukti bayar, sampai admin verifikasi,
+          catat kehadiran, dan keluarin laporan. Akses dari browser apa pun.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 36px; flex: 1;">
+          <div style="border: 1px solid rgba(6,8,15,0.15); padding: 28px 24px; background: #fff;">
+            <div class="scoreboard" style="font-size: 56px; color: var(--royal); line-height: 1;">01</div>
+            <div class="mono"
+              style="font-size: 16px; color: rgba(6,8,15,0.5); letter-spacing: 0.16em; margin-top: 8px;">PUBLIC</div>
+            <h3 style="font-family: var(--font-display); font-size: 28px; margin-top: 16px;">Daftar event</h3>
+            <p style="font-size: 19px; line-height: 1.45; margin-top: 12px; color: rgba(6,8,15,0.75);">Member dan tamu
+              lihat, baca detail, isi form, upload bukti, selesai.</p>
+          </div>
+          <div style="border: 1px solid rgba(6,8,15,0.15); padding: 28px 24px; background: #fff;">
+            <div class="scoreboard" style="font-size: 56px; color: var(--royal); line-height: 1;">02</div>
+            <div class="mono"
+              style="font-size: 16px; color: rgba(6,8,15,0.5); letter-spacing: 0.16em; margin-top: 8px;">ADMIN INBOX
+            </div>
+            <h3 style="font-family: var(--font-display); font-size: 28px; margin-top: 16px;">Verifikasi</h3>
+            <p style="font-size: 19px; line-height: 1.45; margin-top: 12px; color: rgba(6,8,15,0.75);">Setiap registrasi
+              ditinjau: profile, bukti bayar, snapshot harga, keputusan tercatat.</p>
+          </div>
+          <div style="border: 1px solid rgba(6,8,15,0.15); padding: 28px 24px; background: #fff;">
+            <div class="scoreboard" style="font-size: 56px; color: var(--royal); line-height: 1;">03</div>
+            <div class="mono"
+              style="font-size: 16px; color: rgba(6,8,15,0.5); letter-spacing: 0.16em; margin-top: 8px;">OPERATIONS
+            </div>
+            <h3 style="font-family: var(--font-display); font-size: 28px; margin-top: 16px;">Hari-H</h3>
+            <p style="font-size: 19px; line-height: 1.45; margin-top: 12px; color: rgba(6,8,15,0.75);">Catat kehadiran,
+              voucher menu, penyesuaian invoice — semua live di field.</p>
+          </div>
+          <div style="border: 1px solid rgba(6,8,15,0.15); padding: 28px 24px; background: #fff;">
+            <div class="scoreboard" style="font-size: 56px; color: var(--royal); line-height: 1;">04</div>
+            <div class="mono"
+              style="font-size: 16px; color: rgba(6,8,15,0.5); letter-spacing: 0.16em; margin-top: 8px;">REPORT</div>
+            <h3 style="font-family: var(--font-display); font-size: 28px; margin-top: 16px;">Tutup buku</h3>
+            <p style="font-size: 19px; line-height: 1.45; margin-top: 12px; color: rgba(6,8,15,0.75);">Ringkasan
+              finansial, kehadiran, menu — plus ekspor CSV untuk bendahara.</p>
+          </div>
+        </div>
+        <div class="footbar"><span>CISC TANGSEL · TACTICAL</span><span>06 / 22</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 7 — STARTING XI (FORMATION) ============ -->
+    <section data-label="07 Starting XI Formation">
+      <div class="frame bg-pitch">
+        <div class="topbar">
+          <div class="crest"><img src="/assets/cisc-tangsel-logo.png" class="logo"><span>STARTING XI</span></div>
+          <div class="meta"><span>07 / 22</span><span class="dot"></span><span class="scoreline">FEATURES</span></div>
+        </div>
+        <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 12px;">
+          <h2 class="title" style="font-size: 52px;">The Starting XI</h2>
+          <div class="mono" style="color: rgba(246,244,239,0.6); font-size: 16px;">FORMASI 4-3-3</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 320px; gap: 28px; flex: 1; min-height: 0;">
+          <div class="pitch">
+            <div class="box-top"></div>
+            <div class="box-bot"></div>
+            <div class="center-line"></div>
+            <div class="center-circle"></div>
+            <!-- GK -->
+            <div class="player gk" style="left: 50%; top: 92%;">
+              <div class="jersey">1</div>
+              <div class="role">Auth & Roles<span class="sub">GK · Keeper</span></div>
+            </div>
+            <!-- Back four -->
+            <div class="player" style="left: 14%; top: 74%;">
+              <div class="jersey">2</div>
+              <div class="role">Direktori Member<span class="sub">DEF</span></div>
+            </div>
+            <div class="player" style="left: 38%; top: 76%;">
+              <div class="jersey">3</div>
+              <div class="role">Venue & Menu<span class="sub">DEF</span></div>
+            </div>
+            <div class="player" style="left: 62%; top: 76%;">
+              <div class="jersey">4</div>
+              <div class="role">Kepengurusan<span class="sub">DEF</span></div>
+            </div>
+            <div class="player" style="left: 86%; top: 74%;">
+              <div class="jersey">5</div>
+              <div class="role">Branding & Setting<span class="sub">DEF</span></div>
+            </div>
+            <!-- Midfield three -->
+            <div class="player" style="left: 22%; top: 50%;">
+              <div class="jersey">6</div>
+              <div class="role">Event Editor<span class="sub">MID</span></div>
+            </div>
+            <div class="player" style="left: 50%; top: 52%;">
+              <div class="jersey">8</div>
+              <div class="role">Pricing Engine<span class="sub">MID</span></div>
+            </div>
+            <div class="player" style="left: 78%; top: 50%;">
+              <div class="jersey">10</div>
+              <div class="role">Inbox Verifikasi<span class="sub">MID · CAM</span></div>
+            </div>
+            <!-- Front three -->
+            <div class="player" style="left: 18%; top: 22%;">
+              <div class="jersey">7</div>
+              <div class="role">Form Publik<span class="sub">FWD</span></div>
+            </div>
+            <div class="player" style="left: 50%; top: 18%;">
+              <div class="jersey">9</div>
+              <div class="role">Upload &amp; Blob<span class="sub">FWD · ST</span></div>
+            </div>
+            <div class="player" style="left: 82%; top: 22%;">
+              <div class="jersey">11</div>
+              <div class="role">Report &amp; CSV<span class="sub">FWD</span></div>
+            </div>
+          </div>
+          <div>
+            <div class="mono" style="color: var(--gold); margin-bottom: 16px;">TEAM SHEET</div>
+            <div
+              style="display: flex; flex-direction: column; gap: 10px; font-family: var(--font-mono); font-size: 17px; line-height: 1.5; color: rgba(246,244,239,0.85);">
+              <div style="display: grid; grid-template-columns: 28px 1fr; gap: 12px;"><span
+                  style="color: var(--gold);">1</span><span>Auth (magic link + 2FA)</span></div>
+              <div style="display: grid; grid-template-columns: 28px 1fr; gap: 12px;"><span
+                  style="color: var(--gold);">2</span><span>Master Member Directory</span></div>
+              <div style="display: grid; grid-template-columns: 28px 1fr; gap: 12px;"><span
+                  style="color: var(--gold);">3</span><span>Venue &amp; menu config</span></div>
+              <div style="display: grid; grid-template-columns: 28px 1fr; gap: 12px;"><span
+                  style="color: var(--gold);">4</span><span>Periode kepengurusan</span></div>
+              <div style="display: grid; grid-template-columns: 28px 1fr; gap: 12px;"><span
+                  style="color: var(--gold);">5</span><span>Branding &amp; WA template</span></div>
+              <div style="display: grid; grid-template-columns: 28px 1fr; gap: 12px;"><span
+                  style="color: var(--gold);">6</span><span>Event editor &amp; pricing</span></div>
+              <div style="display: grid; grid-template-columns: 28px 1fr; gap: 12px;"><span
+                  style="color: var(--gold);">8</span><span>Pricing snapshot engine</span></div>
+              <div style="display: grid; grid-template-columns: 28px 1fr; gap: 12px;"><span
+                  style="color: var(--gold);">10</span><span>Admin inbox &amp; review</span></div>
+              <div style="display: grid; grid-template-columns: 28px 1fr; gap: 12px;"><span
+                  style="color: var(--gold);">7</span><span>Public form (RHF + zod)</span></div>
+              <div style="display: grid; grid-template-columns: 28px 1fr; gap: 12px;"><span
+                  style="color: var(--gold);">9</span><span>Upload → WebP → Blob</span></div>
+              <div style="display: grid; grid-template-columns: 28px 1fr; gap: 12px;"><span
+                  style="color: var(--gold);">11</span><span>Report 10-query + CSV</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="footbar"><span>CISC TANGSEL · STARTING XI</span><span>07 / 22</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 8 — TECH STACK ============ -->
+    <section data-label="08 Tech Stack Lineup">
+      <div class="frame bg-pitch">
+        <div class="topbar">
+          <div class="crest"><img src="/assets/cisc-tangsel-logo.png" class="logo"><span>TECH STACK · BACK-OFFICE</span>
+          </div>
+          <div class="meta"><span>08 / 22</span><span class="dot"></span><span class="scoreline">UNDER THE HOOD</span>
+          </div>
+        </div>
+        <div class="eyebrow" style="margin-bottom: 12px;">Behind the Scenes</div>
+        <h2 class="title" style="font-size: 52px; line-height: 1.05;">Stack yang dipilih biar pengurus berikutnya
+          gampang lanjutin.</h2>
+        <div
+          style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 28px; flex: 1; min-height: 0;">
+          <div style="border: 1px solid var(--line); background: rgba(255,255,255,0.03); padding: 32px 28px;">
+            <div class="mono" style="color: var(--gold); font-size: 18px; letter-spacing: 0.18em;">RUNTIME</div>
+            <h3 style="font-family: var(--font-display); font-size: 38px; margin-top: 14px;">Next.js 16</h3>
+            <p class="small" style="margin-top: 12px;">App Router, Server Actions, React 19. Satu codebase untuk web
+              publik &amp; admin.</p>
+          </div>
+          <div style="border: 1px solid var(--line); background: rgba(255,255,255,0.03); padding: 32px 28px;">
+            <div class="mono" style="color: var(--gold); font-size: 18px; letter-spacing: 0.18em;">DATABASE</div>
+            <h3 style="font-family: var(--font-display); font-size: 38px; margin-top: 14px;">Postgres · Neon</h3>
+            <p class="small" style="margin-top: 12px;">Serverless Postgres dengan branching. Prisma ORM via adapter,
+              pooled connection.</p>
+          </div>
+          <div style="border: 1px solid var(--line); background: rgba(255,255,255,0.03); padding: 32px 28px;">
+            <div class="mono" style="color: var(--gold); font-size: 18px; letter-spacing: 0.18em;">AUTH</div>
+            <h3 style="font-family: var(--font-display); font-size: 38px; margin-top: 14px;">Better Auth</h3>
+            <p class="small" style="margin-top: 12px;">Magic link + email/password, role gating untuk Owner / Admin /
+              Verifier / Viewer.</p>
+          </div>
+          <div style="border: 1px solid var(--line); background: rgba(255,255,255,0.03); padding: 32px 28px;">
+            <div class="mono" style="color: var(--gold); font-size: 18px; letter-spacing: 0.18em;">STORAGE</div>
+            <h3 style="font-family: var(--font-display); font-size: 38px; margin-top: 14px;">Vercel Blob</h3>
+            <p class="small" style="margin-top: 12px;">Bukti transfer dan foto kartu di-convert ke WebP via Sharp
+              sebelum upload.</p>
+          </div>
+          <div style="border: 1px solid var(--line); background: rgba(255,255,255,0.03); padding: 32px 28px;">
+            <div class="mono" style="color: var(--gold); font-size: 18px; letter-spacing: 0.18em;">UI</div>
+            <h3 style="font-family: var(--font-display); font-size: 38px; margin-top: 14px;">shadcn · Base UI</h3>
+            <p class="small" style="margin-top: 12px;">Komponen yang konsisten, Tailwind utility, React Hook Form + Zod
+              untuk validasi.</p>
+          </div>
+          <div style="border: 1px solid var(--line); background: rgba(255,255,255,0.03); padding: 32px 28px;">
+            <div class="mono" style="color: var(--gold); font-size: 18px; letter-spacing: 0.18em;">HOSTING</div>
+            <h3 style="font-family: var(--font-display); font-size: 38px; margin-top: 14px;">Vercel</h3>
+            <p class="small" style="margin-top: 12px;">Zero ops, preview deployment per branch. Migrate jalan otomatis
+              tiap build.</p>
+          </div>
+        </div>
+        <div class="footbar"><span>CISC TANGSEL · STACK</span><span>08 / 22</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 9 — PLAYER ROLES (ADMIN ROLES) ============ -->
+    <section data-label="09 Player Roles">
+      <div class="frame bg-pitch">
+        <div class="topbar">
+          <div class="crest"><img src="/assets/cisc-tangsel-logo.png" class="logo"><span>SQUAD ROLES</span></div>
+          <div class="meta"><span>09 / 22</span><span class="dot"></span><span class="scoreline">ACCESS</span></div>
+        </div>
+        <div class="eyebrow" style="margin-bottom: 24px;">Player Roles · Admin Access</div>
+        <h2 class="title">Empat peran. Tugas verifikasi<br />terpisah dari setting tingkat klub.</h2>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 64px; flex: 1;">
+          <div
+            style="border: 1px solid var(--line); padding: 28px 24px; background: rgba(245,196,75,0.08); border-top: 4px solid var(--gold);">
+            <div class="mono" style="color: var(--gold); font-size: 16px; letter-spacing: 0.18em;">CAPTAIN · 01</div>
+            <h3 style="font-family: var(--font-display); font-size: 36px; margin-top: 12px;">Owner</h3>
+            <p class="small" style="margin-top: 14px;">Akses penuh. Setting tingkat klub, branding, kebijakan harga,
+              invite admin lain.</p>
+            <div class="mono" style="margin-top: 20px; color: rgba(246,244,239,0.55); font-size: 16px;">
+              CONTOH<br />Ketua chapter</div>
+          </div>
+          <div style="border: 1px solid var(--line); padding: 28px 24px; background: rgba(255,255,255,0.04);">
+            <div class="mono" style="color: var(--sky); font-size: 16px; letter-spacing: 0.18em;">VICE · 02</div>
+            <h3 style="font-family: var(--font-display); font-size: 36px; margin-top: 12px;">Admin</h3>
+            <p class="small" style="margin-top: 14px;">Mirip Owner di operasional event, kecuali setting komite paling
+              sensitif.</p>
+            <div class="mono" style="margin-top: 20px; color: rgba(246,244,239,0.55); font-size: 16px;">
+              CONTOH<br />Wakil &amp; sekretaris</div>
+          </div>
+          <div style="border: 1px solid var(--line); padding: 28px 24px; background: rgba(255,255,255,0.04);">
+            <div class="mono" style="color: var(--sky); font-size: 16px; letter-spacing: 0.18em;">STARTER · 03</div>
+            <h3 style="font-family: var(--font-display); font-size: 36px; margin-top: 12px;">Verifier</h3>
+            <p class="small" style="margin-top: 14px;">Fokus tinjau pendaftaran masuk: approve, reject, tandai kendala
+              pembayaran.</p>
+            <div class="mono" style="margin-top: 20px; color: rgba(246,244,239,0.55); font-size: 16px;">CONTOH<br />Tim
+              acara</div>
+          </div>
+          <div style="border: 1px solid var(--line); padding: 28px 24px; background: rgba(255,255,255,0.04);">
+            <div class="mono" style="color: var(--sky); font-size: 16px; letter-spacing: 0.18em;">SUB · 04</div>
+            <h3 style="font-family: var(--font-display); font-size: 36px; margin-top: 12px;">Viewer</h3>
+            <p class="small" style="margin-top: 14px;">Read-only di area yang diizinkan. Buat audit dan kontrol tanpa
+              risiko ngubah data.</p>
+            <div class="mono" style="margin-top: 20px; color: rgba(246,244,239,0.55); font-size: 16px;">
+              CONTOH<br />Bendahara/auditor</div>
+          </div>
+        </div>
+        <div class="footbar"><span>CISC TANGSEL · ROLES</span><span>09 / 22</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 10 — FIRST HALF / PUBLIC FLOW ============ -->
+    <section data-label="10 First Half Public Flow">
+      <div class="frame bg-pitch">
+        <div class="topbar">
+          <div class="crest"><img src="/assets/cisc-tangsel-logo.png" class="logo"><span>FIRST HALF · PUBLIC FLOW</span>
+          </div>
+          <div class="meta"><span>10 / 22</span><span class="dot"></span><span class="scoreline">USER JOURNEY</span>
+          </div>
+        </div>
+        <div class="eyebrow" style="margin-bottom: 24px;">First Half · Peserta Daftar Event</div>
+        <h2 class="title">Enam touch, satu kali main.<br />Selesai di HP &lt; 3 menit.</h2>
+        <div class="journey" style="margin-top: 56px;">
+          <div class="step">
+            <div class="num">01</div>
+            <h3>Lihat Fixture</h3>
+            <p>Homepage menampilkan event aktif. Kartu hanya muncul kalau jendela registrasi masih buka.</p>
+          </div>
+          <div class="step">
+            <div class="num">02</div>
+            <h3>Buka Detail</h3>
+            <p>Slug-based URL dengan harga, jadwal, kebijakan operasional, dan ringkasan biaya transparan.</p>
+          </div>
+          <div class="step">
+            <div class="num">03</div>
+            <h3>Isi Form</h3>
+            <p>Data diri, pilihan tiket, partner (jika layak), pilihan menu — validasi bahasa Indonesia.</p>
+          </div>
+          <div class="step">
+            <div class="num">04</div>
+            <h3>Upload Bukti</h3>
+            <p>Bukti transfer + foto kartu anggota. Auto-convert ke WebP, max 1600px, quality 80.</p>
+          </div>
+          <div class="step">
+            <div class="num">05</div>
+            <h3>Submit</h3>
+            <p>Transaksi Prisma + upload Blob. Roll back otomatis kalau ada langkah yang gagal.</p>
+          </div>
+          <div class="step">
+            <div class="num">06</div>
+            <h3>Konfirmasi</h3>
+            <p>URL unik per registrasi. Status awal terkirim → menunggu tinjauan admin.</p>
+          </div>
+        </div>
+        <div class="footbar"><span>CISC TANGSEL · PUBLIC FLOW</span><span>10 / 22</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 11 — PRICING ENGINE ============ -->
+    <section data-label="11 Pricing Engine">
+      <div class="frame bg-pitch">
+        <div class="topbar">
+          <div class="crest"><img src="/assets/cisc-tangsel-logo.png" class="logo"><span>PRICING ENGINE</span></div>
+          <div class="meta"><span>11 / 22</span><span class="dot"></span><span class="scoreline">SET PIECE</span></div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 80px; flex: 1;">
+          <div>
+            <div class="eyebrow" style="margin-bottom: 24px;">Set Piece · Pricing</div>
+            <h2 class="title">Satu sumber kebenaran.<br />Live di form, snapshot saat submit.</h2>
+            <p class="subtitle" style="font-size: 32px; margin-top: 24px; max-width: 720px;">
+              <span style="color: var(--white);"><code
+                  style="font-family: var(--font-mono); background: rgba(245,196,75,0.18); padding: 2px 10px; border-radius: 4px;">computeSubmitTotal</code></span>
+              jalan di client (preview live) dan server (authoritative).
+              Begitu submit, harga ter-snapshot — kebijakan berubah seminggu kemudian, registrasi lama aman.
+            </p>
+          </div>
+          <div
+            style="display: flex; flex-direction: column; gap: 18px; font-family: var(--font-mono); font-size: 22px;">
+            <div class="mono" style="color: var(--gold); font-size: 18px; letter-spacing: 0.18em; margin-bottom: 8px;">
+              CONTOH SNAPSHOT (PLACEHOLDER)</div>
+            <div
+              style="display: flex; justify-content: space-between; padding: 16px 24px; background: rgba(255,255,255,0.04); border: 1px solid var(--line);">
+              <span>Tiket member</span><span>Rp [XXX.XXX]</span>
+            </div>
+            <div
+              style="display: flex; justify-content: space-between; padding: 16px 24px; background: rgba(255,255,255,0.04); border: 1px solid var(--line);">
+              <span>Tiket partner</span><span>Rp [XXX.XXX]</span>
+            </div>
+            <div
+              style="display: flex; justify-content: space-between; padding: 16px 24px; background: rgba(255,255,255,0.04); border: 1px solid var(--line);">
+              <span>Menu preselect</span><span>Rp [XX.XXX]</span>
+            </div>
+            <div
+              style="display: flex; justify-content: space-between; padding: 16px 24px; background: rgba(255,255,255,0.04); border: 1px solid var(--line);">
+              <span>Diskon komite</span><span style="color: var(--gold);">− Rp [XX.XXX]</span>
+            </div>
+            <div
+              style="display: flex; justify-content: space-between; padding: 22px 24px; background: rgba(30,77,216,0.32); border: 1px solid var(--gold); align-items: center;">
+              <span
+                style="font-family: var(--font-display); font-weight: 800; font-size: 28px; letter-spacing: -0.01em;">TOTAL</span><span
+                class="scoreboard" style="font-size: 44px; color: var(--gold);">Rp [XXX.XXX]</span>
+            </div>
+            <p class="small"
+              style="margin-top: 6px; font-family: var(--font-body); color: rgba(246,244,239,0.55); font-size: 18px;">
+              Disimpan sebagai field <code style="font-family: var(--font-mono);">*Applied</code> di tabel Registrasi.
+            </p>
+          </div>
+        </div>
+        <div class="footbar"><span>CISC TANGSEL · PRICING</span><span>11 / 22</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 12 — HALFTIME QUOTE ============ -->
+    <section data-label="12 Half-Time">
+      <div class="frame bg-gold" style="justify-content: center;">
+        <div class="topbar" style="border-bottom-color: rgba(6,8,15,0.25); color: rgba(6,8,15,0.6);">
+          <div class="crest" style="color: var(--ink);"><span class="shield"
+              style="background: linear-gradient(180deg, var(--navy-deep), var(--navy));"></span><span>HALF-TIME</span>
+          </div>
+          <div class="meta"><span>12 / 22</span><span class="dot" style="background: var(--navy);"></span><span
+              class="scoreline" style="color: var(--navy);">INTERVAL</span></div>
+        </div>
+        <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+          <div style="max-width: 1360px; position: relative;">
+            <div class="quote-mark"
+              style="position: absolute; left: -80px; top: -80px; color: var(--navy); opacity: 0.22;">"</div>
+            <p
+              style="font-family: var(--font-display); font-weight: 800; font-size: 88px; line-height: 1.04; letter-spacing: -0.025em; color: var(--ink); text-wrap: balance;">
+              Tools cuma alat. Yang bikin CISC Tangsel hidup<br />tetap anggotanya — sistem ini ada buat<br />ngurangin
+              friksi, bukan ngegantiin kehangatan.
+            </p>
+            <div
+              style="margin-top: 56px; font-family: var(--font-mono); font-size: 22px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(6,8,15,0.6);">
+              — Catatan tim inovasi · interval babak pertama</div>
+          </div>
+        </div>
+        <div class="footbar" style="color: rgba(6,8,15,0.5);"><span>CISC TANGSEL · INTERVAL</span><span>12 / 22</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 13 — SECOND HALF / ADMIN WORKFLOW ============ -->
+    <section data-label="13 Second Half Admin">
+      <div class="frame bg-pitch">
+        <div class="topbar">
+          <div class="crest"><img src="/assets/cisc-tangsel-logo.png" class="logo"><span>SECOND HALF · ADMIN
+              INBOX</span></div>
+          <div class="meta"><span>13 / 22</span><span class="dot"></span><span class="scoreline">VERIFICATION</span>
+          </div>
+        </div>
+        <div class="eyebrow" style="margin-bottom: 16px;">Second Half · Admin Workflow</div>
+        <h2 class="title" style="font-size: 56px; line-height: 1.05;">Tiap pendaftaran masuk inbox. Verifier ambil
+          keputusan dengan jejak.</h2>
+        <div
+          style="display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; margin-top: 32px; flex: 1; min-height: 0;">
+          <ol class="bullet-list">
+            <li><span class="idx">A1</span><span><strong style="color: var(--white);">Inbox per event</strong> — daftar
+                registrasi dengan filter status &amp; urut prioritas peninjauan.</span></li>
+            <li><span class="idx">A2</span><span><strong style="color: var(--white);">Detail registrasi</strong> —
+                profil pendaftar, snapshot harga, bukti bayar, riwayat keputusan.</span></li>
+            <li><span class="idx">A3</span><span><strong style="color: var(--white);">Aksi tinjauan</strong> — Approve ·
+                Reject · Payment Issue, lengkap dengan template WhatsApp.</span></li>
+            <li><span class="idx">A4</span><span><strong style="color: var(--white);">Guard server-side</strong> — <code
+                  style="font-family: var(--font-mono); font-size: 22px;">guardEvent()</code> setiap action; tidak
+                pernah ada role check ad-hoc.</span></li>
+            <li><span class="idx">A5</span><span><strong style="color: var(--white);">Audit log</strong> — siapa, kapan,
+                kenapa — semua tercatat di histori registrasi.</span></li>
+          </ol>
+          <div class="placeholder" style="min-height: 0;">
+            <div class="ph-title">Inbox screenshot</div>
+            <div>Drop screenshot admin/events/[id]/inbox</div>
+          </div>
+        </div>
+        <div class="footbar"><span>CISC TANGSEL · ADMIN</span><span>13 / 22</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 14 — STATUS TIMELINE / SUBSTITUTION ============ -->
+    <section data-label="14 Status Substitution">
+      <div class="frame bg-deep">
+        <div class="topbar">
+          <div class="crest"><img src="/assets/cisc-tangsel-logo.png" class="logo"><span>STATUS FLOW ·
+              SUBSTITUTIONS</span></div>
+          <div class="meta"><span>14 / 22</span><span class="dot"></span><span class="scoreline">LIFECYCLE</span></div>
+        </div>
+        <div class="eyebrow" style="margin-bottom: 24px;">Status Flow</div>
+        <h2 class="title" style="max-width: 1440px;">Alur status seperti substitution.<br />Setiap pergantian tercatat,
+          terminal jelas.</h2>
+        <div class="timeline">
+          <div class="stage">
+            <div>
+              <div class="tag">STATE 01</div>
+              <h4>Submitted</h4>
+              <p>Form publik baru saja submit. Snapshot harga tersimpan, blob ter-upload.</p>
+            </div>
+            <div class="mono" style="color: var(--gold);">[entry]</div>
+          </div>
+          <div class="stage">
+            <div>
+              <div class="tag">STATE 02</div>
+              <h4>Pending Review</h4>
+              <p>Masuk antrian verifier. Snapshot &amp; bukti siap dilihat.</p>
+            </div>
+            <div class="mono" style="color: var(--gold);">[wait]</div>
+          </div>
+          <div class="stage approved">
+            <div>
+              <div class="tag">STATE 03A</div>
+              <h4>Approved</h4>
+              <p>Tiket aktif. Lanjut ke pencatatan kehadiran &amp; voucher.</p>
+            </div>
+            <div class="mono" style="color: var(--gold);">[goal]</div>
+          </div>
+          <div class="stage">
+            <div>
+              <div class="tag">STATE 03B</div>
+              <h4>Payment Issue</h4>
+              <p>Bukti meragukan / nominal kurang. WA template otomatis.</p>
+            </div>
+            <div class="mono" style="color: var(--gold);">[yellow]</div>
+          </div>
+          <div class="stage terminal">
+            <div>
+              <div class="tag">TERMINAL</div>
+              <h4>Cancel · Refund</h4>
+              <p>Peluit panjang. Tidak bisa ditindak seperti registrasi aktif tanpa koreksi khusus.</p>
+            </div>
+            <div class="mono" style="color: var(--gold);">[FT]</div>
+          </div>
+        </div>
+        <div class="footbar"><span>CISC TANGSEL · LIFECYCLE</span><span>14 / 22</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 15 — MATCH COMMS (WHATSAPP) ============ -->
+    <section data-label="15 Match Comms WhatsApp">
+      <div class="frame bg-pitch">
+        <div class="topbar">
+          <div class="crest"><img src="/assets/cisc-tangsel-logo.png" class="logo"><span>MATCH COMMS · WHATSAPP</span>
+          </div>
+          <div class="meta"><span>15 / 22</span><span class="dot"></span><span class="scoreline">PLAYBOOK</span></div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; flex: 1; align-items: start;">
+          <div>
+            <div class="eyebrow" style="margin-bottom: 24px;">Match Comms</div>
+            <h2 class="title">Tetap di WhatsApp.<br />Tapi nggak ngarang teks lagi.</h2>
+            <p class="subtitle" style="font-size: 30px; margin-top: 24px;">Anggota nyamannya di WA. Sistem kasih
+              copy-paste template Bahasa Indonesia untuk enam skenario komunikasi.</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 40px;">
+              <div class="mono"
+                style="padding: 14px 18px; background: rgba(255,255,255,0.05); border: 1px solid var(--line); font-size: 18px;">
+                ▸ Persetujuan</div>
+              <div class="mono"
+                style="padding: 14px 18px; background: rgba(255,255,255,0.05); border: 1px solid var(--line); font-size: 18px;">
+                ▸ Penolakan</div>
+              <div class="mono"
+                style="padding: 14px 18px; background: rgba(255,255,255,0.05); border: 1px solid var(--line); font-size: 18px;">
+                ▸ Kendala bayar</div>
+              <div class="mono"
+                style="padding: 14px 18px; background: rgba(255,255,255,0.05); border: 1px solid var(--line); font-size: 18px;">
+                ▸ Pembatalan</div>
+              <div class="mono"
+                style="padding: 14px 18px; background: rgba(255,255,255,0.05); border: 1px solid var(--line); font-size: 18px;">
+                ▸ Refund</div>
+              <div class="mono"
+                style="padding: 14px 18px; background: rgba(255,255,255,0.05); border: 1px solid var(--line); font-size: 18px;">
+                ▸ Tagihan kekurangan</div>
+            </div>
+          </div>
+          <div
+            style="background: #efeae0; color: var(--ink); padding: 32px; border-radius: 12px; box-shadow: 0 16px 60px rgba(0,0,0,0.4); transform: rotate(-1deg);">
+            <div class="mono" style="color: var(--royal); font-size: 16px; letter-spacing: 0.18em;">PREVIEW TEMPLATE ·
+              APPROVED</div>
+            <div
+              style="margin-top: 18px; font-family: var(--font-body); font-size: 20px; line-height: 1.55; color: rgba(6,8,15,0.85);">
+              Halo Kak [Nama], registrasi Kakak untuk <strong>[Event]</strong> sudah <strong
+                style="color: var(--royal);">DISETUJUI</strong> ✓<br /><br />
+              Total terbayar: <strong>Rp [Total]</strong><br />
+              Tiket: [Tipe]<br />
+              Kursi partner: [Ya / Tidak]<br /><br />
+              Sampai bertemu di [Venue] pukul [Jam]. KTBFFH! 🦁
+            </div>
+            <div class="mono"
+              style="margin-top: 24px; color: rgba(6,8,15,0.4); font-size: 14px; letter-spacing: 0.12em;">/ template ·
+              wa-templates/messages.ts</div>
+          </div>
+        </div>
+        <div class="footbar"><span>CISC TANGSEL · COMMS</span><span>15 / 22</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 16 — REPORT SCOREBOARD ============ -->
+    <section data-label="16 Scoreboard Report">
+      <div class="frame bg-pitch">
+        <div class="topbar">
+          <div class="crest"><img src="/assets/cisc-tangsel-logo.png" class="logo"><span>SCOREBOARD · REPORT</span>
+          </div>
+          <div class="meta"><span>16 / 22</span><span class="dot"></span><span class="scoreline">FULL-TIME STATS</span>
+          </div>
+        </div>
+        <div class="eyebrow" style="margin-bottom: 24px;">The Scoreboard</div>
+        <h2 class="title">Tutup buku event<br />dalam satu layar.</h2>
+        <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 56px; margin-top: 56px; flex: 1;">
+          <div
+            style="background: #060d2a; border: 1px solid var(--line); padding: 32px; display: flex; flex-direction: column; gap: 24px;">
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px solid var(--line);">
+              <div class="mono" style="color: var(--gold); letter-spacing: 0.2em;">FULL-TIME · EVENT [SLUG]</div>
+              <div class="scoreboard" style="font-size: 28px; color: var(--gold);">90:00</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px 36px;">
+              <div>
+                <div class="mono" style="color: rgba(246,244,239,0.5); font-size: 16px;">HADIR</div>
+                <div class="scoreboard" style="font-size: 72px; color: var(--white);">[XX]</div>
+              </div>
+              <div>
+                <div class="mono" style="color: rgba(246,244,239,0.5); font-size: 16px;">TERDAFTAR</div>
+                <div class="scoreboard" style="font-size: 72px; color: var(--white);">[XX]</div>
+              </div>
+              <div>
+                <div class="mono" style="color: rgba(246,244,239,0.5); font-size: 16px;">PEMASUKAN</div>
+                <div class="scoreboard" style="font-size: 56px; color: var(--gold);">Rp [X.XXX.XXX]</div>
+              </div>
+              <div>
+                <div class="mono" style="color: rgba(246,244,239,0.5); font-size: 16px;">VOUCHER</div>
+                <div class="scoreboard" style="font-size: 56px; color: var(--gold);">[XX] / [XX]</div>
+              </div>
+            </div>
+          </div>
+          <ul class="bullet-list">
+            <li><span class="idx">R1</span><span>10 query paralel — ringkasan kehadiran, finansial, agregasi
+                menu/voucher.</span></li>
+            <li><span class="idx">R2</span><span>Ekspor CSV 14 kolom RFC 4180 — langsung dibuka di Excel/Sheets.</span>
+            </li>
+            <li><span class="idx">R3</span><span>Angka di layar konsisten dengan detail registrasi — sample
+                audit.</span></li>
+            <li><span class="idx">R4</span><span>Per-event financial PIC &amp; bank account dari <code
+                  style="font-family: var(--font-mono);">AdminProfile</code>.</span></li>
+          </ul>
+        </div>
+        <div class="footbar"><span>CISC TANGSEL · REPORT</span><span>16 / 22</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 17 — DEMO REEL ============ -->
+    <section data-label="17 Demo Reel">
+      <div class="frame bg-pitch">
+        <div class="topbar">
+          <div class="crest"><img src="/assets/cisc-tangsel-logo.png" class="logo"><span>DEMO REEL · HIGHLIGHTS</span>
+          </div>
+          <div class="meta"><span>17 / 22</span><span class="dot"></span><span class="scoreline">LIVE LOOK</span></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 32px;">
+          <div>
+            <div class="eyebrow" style="margin-bottom: 16px;">Demo Reel</div>
+            <h2 class="title" style="font-size: 64px;">Live look · tiga layar utama</h2>
+          </div>
+          <div class="mono" style="color: rgba(246,244,239,0.5);">SCREENSHOT TBD · ATTACH SEBELUM HARI-H</div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; flex: 1;">
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div class="placeholder" style="flex: 1;">
+              <div class="ph-title">Public event page</div>
+              <div>/ events / [slug]</div>
+            </div>
+            <div class="mono" style="font-size: 18px; color: var(--gold); letter-spacing: 0.18em;">01 · MEMBER VIEW
+            </div>
+            <p class="small">Form pendaftaran dengan harga live &amp; upload bukti.</p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div class="placeholder" style="flex: 1;">
+              <div class="ph-title">Admin inbox</div>
+              <div>/ admin / events / [id] / inbox</div>
+            </div>
+            <div class="mono" style="font-size: 18px; color: var(--gold); letter-spacing: 0.18em;">02 · VERIFIER VIEW
+            </div>
+            <p class="small">Daftar registrasi + aksi approve/reject + template WA.</p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div class="placeholder" style="flex: 1;">
+              <div class="ph-title">Report dashboard</div>
+              <div>/ admin / events / [id] / report</div>
+            </div>
+            <div class="mono" style="font-size: 18px; color: var(--gold); letter-spacing: 0.18em;">03 · BENDAHARA VIEW
+            </div>
+            <p class="small">Ringkasan finansial + ekspor CSV 14 kolom.</p>
+          </div>
+        </div>
+        <div class="footbar"><span>CISC TANGSEL · DEMO</span><span>17 / 22</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 18 — MATCH STATS / IMPACT ============ -->
+    <section data-label="18 Match Stats Impact">
+      <div class="frame bg-pitch">
+        <div class="topbar">
+          <div class="crest"><img src="/assets/cisc-tangsel-logo.png" class="logo"><span>MATCH STATS · IMPACT</span>
+          </div>
+          <div class="meta"><span>18 / 22</span><span class="dot"></span><span class="scoreline">RESULTS</span></div>
+        </div>
+        <div class="eyebrow" style="margin-bottom: 24px;">Match Stats</div>
+        <h2 class="title">Yang kita kejar bukan teknologi keren.<br />Tapi outcome buat komunitas.</h2>
+        <div
+          style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px; margin-top: 80px; flex: 1; align-content: center;">
+          <div>
+            <div class="mono" style="color: var(--gold); letter-spacing: 0.18em; margin-bottom: 16px;">WAKTU ADMIN /
+              EVENT</div>
+            <div class="scoreboard" style="font-size: 168px; line-height: 0.92; color: var(--white);">−[XX]<span
+                style="font-size: 80px; color: var(--gold); margin-left: 8px;">%</span></div>
+            <div class="small" style="margin-top: 16px;">Dari rekap manual ke inbox digital.</div>
+          </div>
+          <div>
+            <div class="mono" style="color: var(--gold); letter-spacing: 0.18em; margin-bottom: 16px;">AKURASI DATA
+              MEMBER</div>
+            <div class="scoreboard" style="font-size: 168px; line-height: 0.92; color: var(--white);">+[XX]<span
+                style="font-size: 80px; color: var(--gold); margin-left: 8px;">%</span></div>
+            <div class="small" style="margin-top: 16px;">Validasi otomatis di setiap submit.</div>
+          </div>
+          <div>
+            <div class="mono" style="color: var(--gold); letter-spacing: 0.18em; margin-bottom: 16px;">REGISTRASI &lt; 3
+              MENIT</div>
+            <div class="scoreboard" style="font-size: 168px; line-height: 0.92; color: var(--white);">[XX]<span
+                style="font-size: 80px; color: var(--gold); margin-left: 8px;">%</span></div>
+            <div class="small" style="margin-top: 16px;">Member selesai daftar dari HP.</div>
+          </div>
+        </div>
+        <div class="footbar"><span>* placeholder · isi data aktual</span><span>18 / 22</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 19 — BEFORE VS AFTER ============ -->
+    <section data-label="19 Before vs After">
+      <div class="frame bg-pitch">
+        <div class="topbar">
+          <div class="crest"><img src="/assets/cisc-tangsel-logo.png" class="logo"><span>BEFORE · AFTER</span></div>
+          <div class="meta"><span>19 / 22</span><span class="dot"></span><span class="scoreline">HEAD TO HEAD</span>
+          </div>
+        </div>
+        <div class="eyebrow" style="margin-bottom: 24px;">Head to Head</div>
+        <h2 class="title">Pertandingan yang udah kita menangin.</h2>
+        <div class="compare" style="margin-top: 48px;">
+          <div class="col-old">
+            <div class="head">MANUAL</div>
+            <div class="mono" style="font-size: 18px; color: rgba(246,244,239,0.45); letter-spacing: 0.18em;">SEBELUM
+            </div>
+            <ul>
+              <li>Daftar via japri WhatsApp satu-satu</li>
+              <li>Rekap di spreadsheet yang gampang ketuker</li>
+              <li>Validasi member dicek manual ke Excel</li>
+              <li>Screenshot transfer numpuk di galeri HP</li>
+              <li>Tutup buku per event makan berhari-hari</li>
+              <li>Pesan WA diketik ulang setiap kali</li>
+            </ul>
+          </div>
+          <div class="col-new">
+            <div class="head">DIGITAL</div>
+            <div class="mono" style="font-size: 18px; color: var(--gold); letter-spacing: 0.18em;">SESUDAH</div>
+            <ul>
+              <li>Form publik per event, slug-based URL</li>
+              <li>Satu database, satu sumber kebenaran</li>
+              <li>Validasi otomatis vs Master Member Directory</li>
+              <li>Bukti masuk Vercel Blob, ter-link ke registrasi</li>
+              <li>Report &amp; CSV 14 kolom siap di-share</li>
+              <li>Template WA copy-paste, konsisten</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footbar"><span>CISC TANGSEL · COMPARISON</span><span>19 / 22</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 20 — NEXT SEASON / ROADMAP ============ -->
+    <section data-label="20 Next Season Roadmap">
+      <div class="frame bg-deep">
+        <div class="topbar">
+          <div class="crest"><img src="/assets/cisc-tangsel-logo.png" class="logo"><span>NEXT SEASON · ROADMAP</span>
+          </div>
+          <div class="meta"><span>20 / 22</span><span class="dot"></span><span class="scoreline">PRE-SEASON</span></div>
+        </div>
+        <div class="eyebrow" style="margin-bottom: 24px;">Next Season</div>
+        <h2 class="title">Tiga fase. Tiga jendela transfer.</h2>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 64px; flex: 1;">
+          <div
+            style="border: 1px solid var(--line); padding: 32px 28px; background: rgba(255,255,255,0.04); border-top: 4px solid var(--royal-2); display: flex; flex-direction: column;">
+            <div class="mono" style="color: var(--sky); letter-spacing: 0.2em; font-size: 18px;">WINDOW 01 · Q3 2026
+            </div>
+            <h3 style="font-family: var(--font-display); font-size: 40px; margin-top: 16px; line-height: 1.08;">
+              Polishing &amp; Onboarding</h3>
+            <ul
+              style="list-style: none; padding: 0; margin: 24px 0 0; display: flex; flex-direction: column; gap: 14px; font-size: 20px; line-height: 1.4; color: rgba(246,244,239,0.78);">
+              <li>▸ Onboarding 5 pengurus baru</li>
+              <li>▸ Polishing UI inbox &amp; report</li>
+              <li>▸ Dokumentasi SOP operasional</li>
+              <li>▸ Audit role &amp; permission</li>
+            </ul>
+          </div>
+          <div
+            style="border: 1px solid var(--line); padding: 32px 28px; background: rgba(30,77,216,0.18); border-top: 4px solid var(--gold); display: flex; flex-direction: column;">
+            <div class="mono" style="color: var(--gold); letter-spacing: 0.2em; font-size: 18px;">WINDOW 02 · Q4 2026
+            </div>
+            <h3 style="font-family: var(--font-display); font-size: 40px; margin-top: 16px; line-height: 1.08;">
+              Automation &amp; Reminders</h3>
+            <ul
+              style="list-style: none; padding: 0; margin: 24px 0 0; display: flex; flex-direction: column; gap: 14px; font-size: 20px; line-height: 1.4; color: rgba(246,244,239,0.85);">
+              <li>▸ Integrasi pembayaran (QRIS)</li>
+              <li>▸ WA reminder H-1 otomatis</li>
+              <li>▸ Auto-tag member loyalty</li>
+              <li>▸ Kalender season view</li>
+            </ul>
+          </div>
+          <div
+            style="border: 1px solid var(--line); padding: 32px 28px; background: rgba(255,255,255,0.04); border-top: 4px solid var(--royal-2); display: flex; flex-direction: column;">
+            <div class="mono" style="color: var(--sky); letter-spacing: 0.2em; font-size: 18px;">WINDOW 03 · 2027</div>
+            <h3 style="font-family: var(--font-display); font-size: 40px; margin-top: 16px; line-height: 1.08;">Sharing
+              ke Chapter Lain</h3>
+            <ul
+              style="list-style: none; padding: 0; margin: 24px 0 0; display: flex; flex-direction: column; gap: 14px; font-size: 20px; line-height: 1.4; color: rgba(246,244,239,0.78);">
+              <li>▸ Multi-chapter tenant mode</li>
+              <li>▸ Mobile app companion</li>
+              <li>▸ Sharing playbook ke CISC pusat</li>
+              <li>▸ Komunitas open-source kontributor</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footbar"><span>CISC TANGSEL · ROADMAP</span><span>20 / 22</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 21 — FINAL WHISTLE / CTA ============ -->
+    <section data-label="21 Final Whistle CTA">
+      <div class="frame bg-royal">
+        <div class="topbar" style="border-bottom-color: rgba(255,255,255,0.2);">
+          <div class="crest"><span class="shield" style="background: var(--gold);"></span><span>FINAL WHISTLE</span>
+          </div>
+          <div class="meta"><span>21 / 22</span><span class="dot"></span><span class="scoreline">CALL TO ACTION</span>
+          </div>
+        </div>
+        <div class="eyebrow" style="margin-bottom: 24px;">Final Whistle</div>
+        <h2 class="title" style="font-size: 96px;">Apa yang saya butuh<br />dari Pengurus malam ini.</h2>
+        <div
+          style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 80px; flex: 1; align-content: center;">
+          <div
+            style="border: 1px solid rgba(255,255,255,0.28); padding: 36px 32px; background: rgba(255,255,255,0.05);">
+            <div class="scoreboard" style="font-size: 72px; color: var(--gold); line-height: 1;">01</div>
+            <h3 style="font-family: var(--font-display); font-size: 36px; margin-top: 16px;">Adopsi penuh</h3>
+            <p class="body" style="margin-top: 14px; font-size: 24px;">Komitmen pakai sistem ini di semua event musim
+              depan, tanpa fallback ke japri WA.</p>
+          </div>
+          <div
+            style="border: 1px solid rgba(255,255,255,0.28); padding: 36px 32px; background: rgba(255,255,255,0.05);">
+            <div class="scoreboard" style="font-size: 72px; color: var(--gold); line-height: 1;">02</div>
+            <h3 style="font-family: var(--font-display); font-size: 36px; margin-top: 16px;">Dukungan dokumentasi</h3>
+            <p class="body" style="margin-top: 14px; font-size: 24px;">Sediakan waktu untuk training internal + SOP yang
+              dipakai semua pengurus.</p>
+          </div>
+          <div
+            style="border: 1px solid rgba(255,255,255,0.28); padding: 36px 32px; background: rgba(255,255,255,0.05);">
+            <div class="scoreboard" style="font-size: 72px; color: var(--gold); line-height: 1;">03</div>
+            <h3 style="font-family: var(--font-display); font-size: 36px; margin-top: 16px;">1–2 relawan maintain</h3>
+            <p class="body" style="margin-top: 14px; font-size: 24px;">Buat jaga sistem ke depan — boleh non-engineer,
+              kita training bareng.</p>
+          </div>
+        </div>
+        <div class="footbar" style="color: rgba(255,255,255,0.6);"><span>CISC TANGSEL · CALL TO ACTION</span><span>21 /
+            22</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 22 — THANK YOU / Q&A ============ -->
+    <section data-label="22 Thank You Q&A">
+      <div class="frame bg-pitch" style="justify-content: center; align-items: stretch;">
+        <div class="topbar">
+          <div class="crest"><img src="/assets/cisc-tangsel-logo.png" class="logo"><span>FULL TIME</span></div>
+          <div class="meta"><span>22 / 22</span><span class="dot"></span><span class="scoreline">FT</span></div>
+        </div>
+        <div
+          style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 40px;">
+          <div class="scoreboard" style="font-size: 36px; color: var(--gold); letter-spacing: 0.32em;">FULL TIME · 90:00
+          </div>
+          <h2
+            style="font-family: var(--font-display); font-weight: 900; font-size: 240px; line-height: 0.86; letter-spacing: -0.04em; text-transform: uppercase;">
+            Terima<br /><span style="color: var(--gold);">Kasih.</span>
+          </h2>
+          <p class="subtitle" style="font-size: 40px; max-width: 1280px;">Open mic. Pertanyaan, kritik, ide gila —
+            semuanya ditampung. KTBFFH! 🦁💙</p>
+          <div class="mono" style="margin-top: 40px; color: rgba(246,244,239,0.5);">CISC TANGSEL · TIM INOVASI · MEI
+            2026</div>
+        </div>
+        <div class="footbar"><span>FINAL WHISTLE</span><span>22 / 22</span></div>
+      </div>
+    </section>
+
+  </deck-stage>
+
+  <script src="deck-stage.js"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel">
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "accent": "royal",
+      "scale": "m",
+      "metaphor": "on",
+      "bg": "gradient",
+      "lang": "id"
+    }/*EDITMODE-END*/;
+
+    const ACCENT_COLORS = { royal: "#1e4dd8", "navy-deep": "#0a1640", electric: "#0070ff", "gold-flip": "#f5c44b" };
+
+    function CISCTweaks() {
+      const [t, setTweak] = window.useTweaks(TWEAK_DEFAULTS);
+      React.useEffect(() => {
+        document.documentElement.setAttribute("data-accent", t.accent);
+        document.documentElement.setAttribute("data-scale", t.scale);
+        document.documentElement.setAttribute("data-metaphor", t.metaphor);
+        document.documentElement.setAttribute("data-bg", t.bg);
+        document.documentElement.setAttribute("data-lang", t.lang);
+      }, [t]);
+
+      return (
+        <window.TweaksPanel title="Tweaks">
+          <window.TweakSection label="Accent color" />
+          <window.TweakColor
+            label="Palette"
+            value={ACCENT_COLORS[t.accent]}
+            options={Object.values(ACCENT_COLORS)}
+            onChange={(hex) => {
+              const key = Object.keys(ACCENT_COLORS).find(k => ACCENT_COLORS[k] === hex) || "royal";
+              setTweak("accent", key);
+            }}
+          />
+          <window.TweakSection label="Type scale" />
+          <window.TweakRadio label="Size" value={t.scale} options={["s", "m", "l"]} onChange={(v) => setTweak("scale", v)} />
+          <window.TweakSection label="Football metaphor" />
+          <window.TweakRadio label="Mode" value={t.metaphor} options={["on", "off"]} onChange={(v) => setTweak("metaphor", v)} />
+          <window.TweakSection label="Background" />
+          <window.TweakRadio label="Style" value={t.bg} options={["gradient", "solid"]} onChange={(v) => setTweak("bg", v)} />
+          <window.TweakSection label="Language" />
+          <window.TweakRadio label="Lang" value={t.lang} options={["id", "en"]} onChange={(v) => setTweak("lang", v)} />
+        </window.TweaksPanel>
+      );
+    }
+
+    const tweaksRoot = document.createElement("div");
+    document.body.appendChild(tweaksRoot);
+    ReactDOM.createRoot(tweaksRoot).render(<CISCTweaks />);
+  </script>
+</body>
+
+</html>
